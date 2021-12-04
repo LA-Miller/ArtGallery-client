@@ -28,14 +28,10 @@ function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      lizeth
-=======
     
       <Sitebar clickLogout={clearToken}/>
       <PostCreate/>
     
->>>>>>> 3420541d9e6bf3eee21419e39ff01f20bf1ebeda
     </div>
   );
 }
