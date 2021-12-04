@@ -24,7 +24,13 @@ const Sitebar = (props) => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="m1-auto" navbar>
           <NavItem>
-            <Button>Logout</Button>
+            <Button>Create Account</Button>
+          </NavItem>
+          <NavItem>
+            <Button>Login</Button>
+          </NavItem>
+          <NavItem className="logout">
+            <Button >Logout</Button>
           </NavItem>
         </Nav>
       </Collapse>

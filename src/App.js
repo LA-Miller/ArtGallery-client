@@ -5,9 +5,30 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
 function App() {
+  const [ sessionToken, setSessionToken ] = useState('');
+
+  useEffect(() => {
+    setSessionToken(localStorage.getItem('token'));
+  }, [])
+
+  const updateToken = (newToken) => {
+    localStorage.setItem('token', newToken);
+    setSessionToken(newToken);
+  }
+
+  const clearToken = () => {
+    localStorage.clear();
+    setSessionToken('');
+  }
+
+  // const protectedViews = () => {
+  //   return (sessionToken === localStorage.getItem('token') ? <WorkoutIndex token={sessionToken} /> : <Auth updateToken={updateToken}/>)
+  // }
+
   return (
     <div className="App">
-      <Sitebar />
+      <Sitebar clickLogout={clearToken}/>
+      {/* {protectedViews()} */}
     </div>
   );
 }
