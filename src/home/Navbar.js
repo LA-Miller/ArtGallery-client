@@ -20,20 +20,6 @@ const Sitebar = (props) => {
   return (
     <Navbar color="faded" light expand="md">
       <NavbarBrand href="/">Art Gallery</NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="m1-auto" navbar>
-          <NavItem>
-            <Button>Create Account</Button>
-          </NavItem>
-          <NavItem>
-            <Button>Login</Button>
-          </NavItem>
-          <NavItem className="logout">
-            <Button >Logout</Button>
-          </NavItem>
-        </Nav>
-      </Collapse>
     </Navbar>
   );
 };

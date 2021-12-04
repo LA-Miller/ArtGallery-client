@@ -9,12 +9,15 @@ function App() {
   const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
-    setSessionToken(localStorage.getItem("token"));
+    if (localStorage.getItem("token")) {
+      setSessionToken(localStorage.getItem("token"));
+    }
   }, []);
 
   const updateToken = (newToken) => {
     localStorage.setItem("token", newToken);
     setSessionToken(newToken);
+    console.log(sessionToken);
   };
 
   const clearToken = () => {
@@ -29,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <Sitebar clickLogout={clearToken} />
-      <PostCreate />
+      <Auth updateToken={updateToken}/>
     </div>
   );
 }
