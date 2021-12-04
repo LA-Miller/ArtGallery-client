@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import Auth from './auth/Auth';
-import Sitebar from './home/Navbar'
-import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
-import PostCreate from './posts/PostCreate';
+import React, { useState, useEffect } from "react";
+import Auth from "./auth/Auth";
+import Sitebar from "./home/Navbar";
+import "bootstrap/dist/css/bootstrap.css";
+import "./App.css";
+import PostCreate from "./posts/PostCreate";
 
 function App() {
-  const [ sessionToken, setSessionToken ] = useState('');
+  const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
-    setSessionToken(localStorage.getItem('token'));
-  }, [])
+    if (localStorage.getItem("token")) {
+      setSessionToken(localStorage.getItem("token"));
+    }
+  }, []);
 
   const updateToken = (newToken) => {
-    localStorage.setItem('token', newToken);
+    localStorage.setItem("token", newToken);
     setSessionToken(newToken);
-  }
+    console.log(sessionToken);
+  };
 
   const clearToken = () => {
     localStorage.clear();
-    setSessionToken('');
-  }
+    setSessionToken("");
+  };
 
   // const protectedViews = () => {
   //   return (sessionToken === localStorage.getItem('token') ? <WorkoutIndex token={sessionToken} /> : <Auth updateToken={updateToken}/>)
@@ -28,14 +31,10 @@ function App() {
 
   return (
     <div className="App">
-    
-      <Sitebar clickLogout={clearToken}/>
-      <PostCreate/>
-    
+      <Sitebar clickLogout={clearToken} />
+      <Auth updateToken={updateToken}/>
     </div>
   );
 }
-
-
 
 export default App;
