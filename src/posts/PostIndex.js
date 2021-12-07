@@ -4,6 +4,7 @@ import {Container, Row, Col} from 'reactstrap';
 const PostIndex = (props) => {
     return(
         <div>
+            <Sitebar clickLogout={clearToken} />
             Test
         </div>
     )
