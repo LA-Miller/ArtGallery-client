@@ -5,24 +5,33 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {
     const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showAll, setShowAll] = useState(false);//show all the fields may need to be removed
+
+    const [base64String, setBase64String] = useState('');
+
 
     useEffect(() => {
         if (isSubmitting) {
             setIsSubmitting(false);
             console.log(post);
-            fetch('/localhost:3000/art/create', {
+            fetch('/localhost:5432/art/create', {
                 method: 'POST',
-                body: JSON.stringify({log:{artist_name : artist_name, url : url, description : description, style : style, era : era, for_sale : for_sale, price : price,}}),
+                body: JSON.stringify({ log: { artist_name: artist_name, url: base64String, description: description, style: style, era: era, for_sale: for_sale, price: price, } }),
                 headers: ({
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${"change later".token}`
-                })        
-            }) 
-            .then(res => res.json())
-            .then(data => console.log(data))
+                })
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
         }
 
     }, [isSubmitting]);
+
+    useEffect (() => {
+        console.log(base64String);
+
+    }, [base64String]);
 
 
     const handleInputChange = (event) => {
@@ -31,16 +40,27 @@ export default function PostCreate({ artist_name, url, description, style, era, 
     };
 
 
-    const imageUpload64 = (event) => {
+    const imageUpload64 = (event) => {//set post request to send image to
         let img64 = '';
-        getBase64 (event.target.files[0], (result) => {
-            img64 = result;
-            console.log(result);
-            setPost({ ...post, url: img64 });
-        });
+        // getBase64(event.target.files[0], (result) => {
+        //     img64 = result;
+        //     console.log(result);
+        //     setPost({ ...post, url: img64 });
+        // });
+        const file = document.getElementById('url').files[0];
+        console.log(file);
+        if (file) {
+            //second if else statement to limit types of images, png, jpg, gif. 
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setBase64String(e.target.result);
+            };
+            reader.readAsDataURL(file);
+
+        }
+
         function getBase64(file, cb) {
             let reader = new FileReader();
-            reader.readAsDataURL(file);
             reader.onload = function () {
                 cb(reader.result)
             };
@@ -67,13 +87,13 @@ export default function PostCreate({ artist_name, url, description, style, era, 
                     id="artist_name"
                     placeholder="Artist Name"
                     value={post.artist_name}
-                    onChange={imageUpload64}
+                    onChange={handleInputChange}
                 />
             </FormGroup>
             <FormGroup>
                 <Label for="url">Url</Label>
                 <Input
-                    accept="image/*"
+                    accept="jpg, jpeg, png"
                     type="file"
                     name="url"
                     id="url"

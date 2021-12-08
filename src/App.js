@@ -4,6 +4,7 @@ import Sitebar from './home/Navbar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import PostCreate from './posts/PostCreate';
+import PostDisplay from './posts/PostDisplay';
 
 function App() {
   const [ sessionToken, setSessionToken ] = useState('');
