@@ -27,7 +27,7 @@ export default function PostCreate({artist_name,url,description,style,era,for_sa
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${props.token}`,
+          'Authorization': `Bearer ${"changeLater".token}`,
         },
       })
         .then((res) => res.json())
