@@ -1,24 +1,8 @@
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-export default function PostCreate({
-  artist_name,
-  url,
-  description,
-  style,
-  era,
-  for_sale,
-  price
-}) {
-  const [post, setPost] = useState({
-    artist_name,
-    url,
-    description,
-    style,
-    era,
-    for_sale,
-    price
-  });
+export default function PostCreate({artist_name,url,description,style,era,for_sale,price}) { 
+  const [post, setPost] = useState({artist_name,url,description,style,era,for_sale,price});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAll, setShowAll] = useState(false); //show all the fields may need to be removed
 
@@ -43,7 +27,7 @@ export default function PostCreate({
         }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${"change later".token}`,
+          Authorization: `Bearer ${props.token}`,
         },
       })
         .then((res) => res.json())
