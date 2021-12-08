@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
+import { useState, useEffect } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {
     const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });
@@ -14,7 +13,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
         if (isSubmitting) {
             setIsSubmitting(false);
             console.log(post);
-            fetch('/localhost:5432/art/create', {
+            fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
                 method: 'POST',
                 body: JSON.stringify({ log: { artist_name: artist_name, url: base64String, description: description, style: style, era: era, for_sale: for_sale, price: price, } }),
                 headers: ({
@@ -68,7 +67,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
                 console.log('Error: ', error);
             };
         }
-    }
+   
 
     // const imageRender64 = (event) => {
     //     let decoded = base64decode(encoded)
@@ -171,5 +170,4 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             <Button>Submit</Button>
         </Form>
     );
-};
-
+}
