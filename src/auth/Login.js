@@ -42,7 +42,7 @@ const Login = (props) => {
             value={password}
           />
         </FormGroup>
-        <Button type="submit">Login</Button>
+        <Button id="login-btn" variant="primary" type="submit">Login</Button>
       </Form>
     </div>
   );
