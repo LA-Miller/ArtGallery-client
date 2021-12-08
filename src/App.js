@@ -3,6 +3,8 @@ import Auth from "./auth/Auth";
 import Sitebar from "./home/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
+import PostCreate from "./posts/PostCreate";
+import PostDisplay from "./posts/PostDisplay";
 import PostIndex from "./posts/PostIndex";
 
 function App() {
@@ -26,8 +28,12 @@ function App() {
   };
 
   const protectedViews = () => {
-    return (sessionToken === localStorage.getItem('token') ? <PostIndex token={sessionToken} /> : <Auth updateToken={updateToken}/>)
-  }
+    return sessionToken === localStorage.getItem("token") ? (
+      <PostIndex token={sessionToken} />
+    ) : (
+      <Auth updateToken={updateToken} />
+    );
+  };
 
   return (
     <div className="App">

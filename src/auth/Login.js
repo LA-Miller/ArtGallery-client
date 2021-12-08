@@ -7,6 +7,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     fetch("https://lam-art-gallery-server.herokuapp.com/user/login", {
       method: "POST",
       body: JSON.stringify({
@@ -42,7 +43,7 @@ const Login = (props) => {
             value={password}
           />
         </FormGroup>
-        <Button type="submit">Login</Button>
+        <Button id="login-btn" variant="primary" type="submit">Login</Button>
       </Form>
     </div>
   );
