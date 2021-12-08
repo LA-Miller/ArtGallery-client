@@ -39,4 +39,31 @@
 
 #login-btn {
   background-color: purple;
+  margin-bottom: 100px;
 }
+
+#login-col {
+  background-color: lightblue;
+}
+
+.login-h1 {
+  color: purple;
+}
+
+#signup-btn {
+  background-color: purple;
+  margin-bottom: 100px;
+}
+
+#signup-col {
+  background-color: lightblue;
+}
+
+.signup-h1 {
+  color: purple;
+}
+
+#sign-in-page {
+  
+}
+
