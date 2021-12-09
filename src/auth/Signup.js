@@ -8,7 +8,8 @@ const Signup = (props) => {
   let handleSubmit = (event) => {
     console.log(email, password);
     event.preventDefault();
-    fetch("http://localhost:3000/user/register", {
+
+    fetch("https://lam-art-gallery-server.herokuapp.com/user/register", {
       method: "POST",
       body: JSON.stringify({
         user: { email: email, password: password },
