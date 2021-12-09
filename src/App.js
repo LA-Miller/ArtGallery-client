@@ -7,7 +7,7 @@ import PostCreate from "./posts/PostCreate";
 import PostDisplay from "./posts/PostDisplay";
 import PostIndex from "./posts/PostIndex";
 
-function App() {
+function App (props) {
   const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
@@ -40,6 +40,7 @@ function App() {
       <Sitebar clickLogout={clearToken} />
       {protectedViews()}
     </div>
+   
   );
 }
 
