@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
+import { useState, useEffect } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {//exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
     const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });//creating post state and setting the state to the post object
@@ -13,7 +12,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
         if (isSubmitting) {
             console.log('pong')
             console.log(post);
-            fetch('http://127.0.0.1:3003/art/create', {
+            fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
                 method: 'POST',
                 body: JSON.stringify({ post }),
                 headers: ({
@@ -58,7 +57,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             };
             reader.readAsDataURL(file);
         }
-    }
+   
 
     return (
         <Form>
@@ -153,5 +152,4 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             <Button onClick={(() => setIsSubmitting(true))}>Submit</Button>
         </Form>
     );
-};
-
+}
