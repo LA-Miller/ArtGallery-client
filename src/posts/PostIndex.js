@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Carousel } from "reactstrap";
+import { Container, Row, Col, Carousel, Card, ListGroup, ListGroupItem, CardImg, CardBody, CardTitle, CardText, CardLink,  } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
@@ -22,8 +22,28 @@ const PostIndex = (props) => {
   };
 
   return (
-    <div>
-      
+    <div className="main">
+      <div className="mainDiv">
+        <Card style={{ width: "18rem" }}>
+          <CardImg variant="top" src="holder.js/100px180?text=Image cap" />
+          <CardBody>
+            <CardTitle>Card Title</CardTitle>
+            <CardText>
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </CardText>
+          </CardBody>
+          <ListGroup className="list-group-flush">
+            <ListGroupItem>Cras justo odio</ListGroupItem>
+            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+            <ListGroupItem>Vestibulum at eros</ListGroupItem>
+          </ListGroup>
+          <CardBody>
+            <CardLink href="#">Card Link</CardLink>
+            <CardLink href="#">Another Link</CardLink>
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 };
