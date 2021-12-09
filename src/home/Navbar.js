@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import logo from "../assets/logo.svg";
+import "../App.css";
 import {
   Collapse,
   Navbar,
@@ -19,13 +21,17 @@ const Sitebar = (props) => {
 
   return (
     <Navbar color="faded" light expand="md">
-      <NavbarBrand href="/">Art Gallery</NavbarBrand>
-      <NavbarToggler onClick={toggle}/>
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Button onClick={props.clickLogout}>Logout</Button>
-          </NavItem>
+      <NavbarBrand id="logo" className="text-center" href="/">
+        <img alt="Art Gallery Logo" src={logo} width="400" height="200" />
+      </NavbarBrand>
+      <NavbarToggler onClick={toggle} />
+      <Collapse className="moveToEnd" isOpen={isOpen} navbar>
+        <Nav className="nav">
+          {!!localStorage.getItem("token") && (
+            <NavItem className="logout">
+              <Button id="logout-btn" onClick={props.clickLogout}>Logout</Button>
+            </NavItem>
+          )}
         </Nav>
       </Collapse>
     </Navbar>
