@@ -7,6 +7,34 @@ export default function PostCreate({ artist_name, url, description, style, era, 
     const [base64String, setBase64String] = useState('');//creating base64String state and setting the state to the base64String string
 
 
+  useEffect(() => {
+    if (isSubmitting) {
+      setIsSubmitting(false);
+      console.log(post);
+      fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
+        method: "POST",
+        body: JSON.stringify({
+          log: {
+            artist_name: artist_name,
+            url: base64String,
+            description: description,
+            style: style,
+            era: era,
+            for_sale: for_sale,
+            price: price,
+          },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${props.token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
+  }, [isSubmitting]);
+
+
     useEffect(() => {
         console.log('ping')
         if (isSubmitting) {
@@ -36,8 +64,17 @@ export default function PostCreate({ artist_name, url, description, style, era, 
     useEffect(() => {
         console.log(base64String);
 
-    }, [base64String]);
 
+    function getBase64(file, cb) {
+      let reader = new FileReader();
+      reader.onload = function () {
+        cb(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+    }
+  };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -152,4 +189,5 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             <Button onClick={(() => setIsSubmitting(true))}>Submit</Button>
         </Form>
     );
+
 }
