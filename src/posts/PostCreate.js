@@ -10,7 +10,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
         if (isSubmitting) {
             setIsSubmitting(false);
             console.log(post);
-            fetch('/localhost:3000/art/create', {
+            fetch('/localhost:5432/art/create', {
                 method: 'POST',
                 body: JSON.stringify({log:{artist_name : artist_name, url : url, description : description, style : style, era : era, for_sale : for_sale, price : price,}}),
                 headers: ({

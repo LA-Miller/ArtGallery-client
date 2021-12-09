@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import logo from '../assets/logo.svg'
+import '../App.css';
 import {
   Collapse,
   Navbar,
@@ -19,15 +21,22 @@ const Sitebar = (props) => {
 
   return (
     <Navbar color="faded" light expand="md">
-      <NavbarBrand href="/">Art Gallery</NavbarBrand>
+      <NavbarBrand href="/">
+        <img
+          alt="Art Gallery Logo"
+          src={logo}
+          width="400"
+          height="200"
+         />
+      </NavbarBrand>
       <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="m1-auto" navbar>
-          <NavItem>
-            <Button>Create Account</Button>
+      <Collapse className="moveToEnd"isOpen={isOpen} navbar>
+        <Nav className="d-flex justify-content-end" navbar>
+          <NavItem className="create">
+            <Button id="create">Create Account</Button>
           </NavItem>
-          <NavItem>
-            <Button>Login</Button>
+          <NavItem className="login">
+            <Button variant="outline-success">Login</Button>
           </NavItem>
           <NavItem className="logout">
             <Button >Logout</Button>

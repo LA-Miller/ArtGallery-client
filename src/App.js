@@ -4,6 +4,7 @@ import Sitebar from './home/Navbar'
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import PostCreate from './posts/PostCreate';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   const [ sessionToken, setSessionToken ] = useState('');
@@ -33,6 +34,7 @@ function App() {
       <PostCreate/>
     
     </div>
+   
   );
 }
 
