@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-export default function PostCreate({artist_name,url,description,style,era,for_sale,price}) { 
+export default function PostCreate({artist_name,url,description,style,era, for_sale, price, token}) { 
   const [post, setPost] = useState({artist_name,url,description,style,era,for_sale,price});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAll, setShowAll] = useState(false); //show all the fields may need to be removed
 
   const [base64String, setBase64String] = useState("");
+  console.log(token);
 
   useEffect(() => {
     if (isSubmitting) {
       setIsSubmitting(false);
+      console.log(isSubmitting);
       console.log(post);
       fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
         method: "POST",
@@ -27,7 +29,7 @@ export default function PostCreate({artist_name,url,description,style,era,for_sa
         }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${"changeLater".token}`,
+          'Authorization': `Bearer ${token}`,
         },
       })
         .then((res) => res.json())
