@@ -40,6 +40,7 @@ function App() {
       <Sitebar clickLogout={clearToken} />
       {protectedViews()}
     </div>
+   
   );
 }
 

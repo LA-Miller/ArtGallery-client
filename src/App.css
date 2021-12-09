@@ -1,6 +1,26 @@
 .App {
   text-align: center;
 }
+.login {
+  align-items: flex-end;
+}
+.logout {
+  align-items: flex-end;
+}
+.create {
+  align-items: flex-end;
+}
+.ml-auto {
+  align-items: flex-end;
+}
+.moveToEnd {
+  display: flex;
+  align-items: flex-end;
+}
+img {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 
 .App-logo {
   height: 40vmin;
@@ -64,6 +84,4 @@
 }
 
 #sign-in-page {
-  
 }
-
