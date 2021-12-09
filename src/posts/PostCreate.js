@@ -2,33 +2,39 @@ import { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
-export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {
-    const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showAll, setShowAll] = useState(false);//show all the fields may need to be removed
-
-    const [base64String, setBase64String] = useState('');
+export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {//exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
+    const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });//creating post state and setting the state to the post object
+    const [isSubmitting, setIsSubmitting] = useState(false);//creating isSubmitting state and setting the state to the isSubmitting boolean
+    const [base64String, setBase64String] = useState('');//creating base64String state and setting the state to the base64String string
 
 
     useEffect(() => {
+        console.log('ping')
         if (isSubmitting) {
-            setIsSubmitting(false);
+            console.log('pong')
             console.log(post);
-            fetch('/localhost:5432/art/create', {
+            fetch('http://127.0.0.1:3003/art/create', {
                 method: 'POST',
-                body: JSON.stringify({ log: { artist_name: artist_name, url: base64String, description: description, style: style, era: era, for_sale: for_sale, price: price, } }),
+                body: JSON.stringify({ post }),
                 headers: ({
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${"change later".token}`
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjM5MDYxMzYxLCJleHAiOjE2MzkxNDc3NjF9.HRr1BdJr0ncjusFh_gi7Z2bjUps0Yep5gwyCDyCH55E` // ${localStorage.getItem('token')}
                 })
             })
-                .then(res => res.json())
-                .then(data => console.log(data))
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setIsSubmitting(false); //setting it back to false so it does not keep running
+            })
+            .catch(err => {
+                console.error(err)
+                setIsSubmitting(false);
+            })
         }
 
-    }, [isSubmitting]);
+    }, [isSubmitting]);//setting the isSubmitting state to false when the form is submitted
 
-    useEffect (() => {
+    useEffect(() => {
         console.log(base64String);
 
     }, [base64String]);
@@ -37,16 +43,9 @@ export default function PostCreate({ artist_name, url, description, style, era, 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setPost({ ...post, [name]: value });
-    };
+    };//setting the post state to the value of the input
 
-
-    const imageUpload64 = (event) => {//set post request to send image to
-        let img64 = '';
-        // getBase64(event.target.files[0], (result) => {
-        //     img64 = result;
-        //     console.log(result);
-        //     setPost({ ...post, url: img64 });
-        // });
+    const imageUpload64 = (event) => {//set post request to send image to server
         const file = document.getElementById('url').files[0];
         console.log(file);
         if (file) {
@@ -54,31 +53,15 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             const reader = new FileReader();
             reader.onload = (e) => {
                 setBase64String(e.target.result);
+                setPost({ ...post, url : e.target.result });
+                console.log(post, e.target.result);
             };
             reader.readAsDataURL(file);
-
-        }
-
-        function getBase64(file, cb) {
-            let reader = new FileReader();
-            reader.onload = function () {
-                cb(reader.result)
-            };
-            reader.onerror = function (error) {
-                console.log('Error: ', error);
-            };
         }
     }
 
-    // const imageRender64 = (event) => {
-    //     let decoded = base64decode(encoded)
-    // }
     return (
-        <Form onSubmit={(event) => {
-            event.preventDefault();
-            console.log(post);
-            setIsSubmitting(true);
-        }}>
+        <Form>
             <FormGroup>
                 <Label for="artist_name">Artist Name</Label>
                 <Input
@@ -98,7 +81,6 @@ export default function PostCreate({ artist_name, url, description, style, era, 
                     name="url"
                     id="url"
                     placeholder="https://www.example.com"
-                    value={post.url}
                     onChange={imageUpload64}
                 />
             </FormGroup>
@@ -168,7 +150,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
                     onChange={handleInputChange}
                 />
             </FormGroup>
-            <Button>Submit</Button>
+            <Button onClick={(() => setIsSubmitting(true))}>Submit</Button>
         </Form>
     );
 };
