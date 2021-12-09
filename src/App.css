@@ -14,8 +14,12 @@
   align-items: flex-end;
 }
 .moveToEnd {
-  display: flex;
-  align-items: flex-end;
+  width: 100%;
+  justify-content: flex-end;
+}
+#create {
+  background-color: blueviolet;
+
 }
 img {
   margin-top: 0px;

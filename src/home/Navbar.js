@@ -25,13 +25,13 @@ const Sitebar = (props) => {
         <img
           alt="Art Gallery Logo"
           src={logo}
-          width="400"
+          width="300"
           height="200"
          />
       </NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse className="moveToEnd"isOpen={isOpen} navbar>
-        <Nav className="d-flex justify-content-end" navbar>
+        <Nav className="navbar" navbar>
           <NavItem className="create">
             <Button id="create">Create Account</Button>
           </NavItem>
@@ -45,6 +45,10 @@ const Sitebar = (props) => {
       </Collapse>
     </Navbar>
   );
+
+
+
+
 };
 
 export default Sitebar;
