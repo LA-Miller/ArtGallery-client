@@ -30,19 +30,21 @@ const Signup = (props) => {
       <h1 className="signup-h1">Sign Up</h1>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label htmlFor="email">Email</Label>
+          <Label id="email-label" htmlFor="email">Email</Label>
           <Input
             onChange={(e) => setEmail(e.target.value)}
             name="email"
             value={email}
+            id="signup-email"
           />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="password">Password</Label>
+          <Label id="pass-label" htmlFor="password">Password</Label>
           <Input
             onChange={(e) => setPassword(e.target.value)}
             name="password"
             value={password}
+            id="signup-pass"
           />
         </FormGroup>
         <Button id="signup-btn" type="submit">Signup</Button>
