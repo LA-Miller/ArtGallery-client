@@ -53,16 +53,6 @@ export default function PostCreate({
     console.log(base64String);
   }, [base64String]);
 
-  // function getBase64(file, cb) {
-  //   let reader = new FileReader();
-  //   reader.onload = function () {
-  //     cb(reader.result);
-  //   };
-  //   reader.onerror = function (error) {
-  //     console.log("Error: ", error);
-  //   };
-  // }
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     console.log({ ...post, [name]: value });
@@ -163,7 +153,7 @@ export default function PostCreate({
           onChange={handleInputChange}
         />
       </FormGroup>
-      <Button onClick={() => setIsSubmitting(true)}>Submit</Button>
+      <Button onClick={() => setIsSubmitting(true)}>Post Art</Button>
     </Form>
   );
 }
