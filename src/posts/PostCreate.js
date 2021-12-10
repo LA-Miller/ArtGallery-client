@@ -149,7 +149,6 @@ export default function PostCreate({
           name="for_sale"
           id="for_sale"
           placeholder="For Sale"
-          // value={post.for_sale}
           onChange={handleInputChange}
         />
       </FormGroup>
