@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
+
 export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {//exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
     const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });//creating post state and setting the state to the post object
     const [isSubmitting, setIsSubmitting] = useState(false);//creating isSubmitting state and setting the state to the isSubmitting boolean
     const [base64String, setBase64String] = useState('');//creating base64String state and setting the state to the base64String string
-
 
     useEffect(() => {
         console.log('ping')
@@ -34,9 +34,18 @@ export default function PostCreate({ artist_name, url, description, style, era, 
 
     useEffect(() => {
         console.log(base64String);
-
     }, [base64String]);
 
+    function getBase64(file, cb) {
+      let reader = new FileReader();
+      reader.onload = function () {
+        cb(reader.result);
+      };
+      reader.onerror = function (error) {
+        console.log("Error: ", error);
+      };
+    }
+  };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
