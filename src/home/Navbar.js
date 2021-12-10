@@ -10,6 +10,7 @@ import {
   NavItem,
   Button,
 } from "reactstrap";
+import PostCreate from "../posts/PostCreate";
 
 const Sitebar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
