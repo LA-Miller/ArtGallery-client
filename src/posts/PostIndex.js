@@ -3,6 +3,7 @@ import { Container, Row, Col, Carousel, Card, ListGroup, ListGroupItem, CardImg,
 import "bootstrap/dist/css/bootstrap.css";
 import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
+//import PostCreate from "./PostCreate";
 
 const PostIndex = (props) => {
   const [art, setArt] = useState([]);
@@ -24,6 +25,7 @@ const PostIndex = (props) => {
   return (
     <div className="main">
       <div className="mainDiv">
+        <PostCreate/>
         <Card style={{ width: "18rem" }}>
           <CardImg variant="top" src="holder.js/100px180?text=Image cap" />
           <CardBody>
