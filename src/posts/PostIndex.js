@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Carousel } from "reactstrap";
+// import { Container, Row, Col, Carousel } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
+import ImageSlider from "../home/ImageSlider";
+import { SliderData } from "../home/SliderData";
 
 const PostIndex = (props) => {
   const [art, setArt] = useState([]);
@@ -23,7 +25,7 @@ const PostIndex = (props) => {
 
   return (
     <div>
-      
+      <ImageSlider slides={SliderData} />;
     </div>
   );
 };
