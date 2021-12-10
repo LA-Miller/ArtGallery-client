@@ -13,7 +13,7 @@ const PostIndex = (props) => {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${props.token}`,
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
       }),
     })
       .then((res) => res.json())
