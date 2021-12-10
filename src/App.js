@@ -3,8 +3,6 @@ import Auth from "./auth/Auth";
 import Sitebar from "./home/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import PostCreate from "./posts/PostCreate";
-import PostDisplay from "./posts/PostDisplay";
 import PostIndex from "./posts/PostIndex";
 
 function App (props) {
@@ -39,8 +37,7 @@ function App (props) {
     <div className="App">
       <Sitebar clickLogout={clearToken} />
       {protectedViews()}
-    </div>
-   
+    </div> 
   );
 }
 
