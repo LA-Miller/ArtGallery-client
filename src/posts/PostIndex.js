@@ -27,11 +27,11 @@ const PostIndex = (props) => {
   //http://localhost:3333/art/
   //https://lam-art-gallery-server.herokuapp.com/art/
   const fetchPosts = async () => {
-    const response = await fetch("http://localhost:3333/art/", {
+    const response = await fetch("http://localhost:3003/art/", {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       }),
     })
       .then((res) => {
@@ -40,7 +40,7 @@ const PostIndex = (props) => {
       })
       .then((data) => {
         setData(data);
-        console.log("data:", data);
+        console.log("data:", typeof data);
       });
 
     return response;

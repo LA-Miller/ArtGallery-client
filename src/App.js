@@ -7,6 +7,7 @@ import PostIndex from "./posts/PostIndex";
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
+import Footer from "./home/Footer";
 
 function App(props) {
   const [sessionToken, setSessionToken] = useState("");
@@ -42,6 +43,7 @@ function App(props) {
         <Sitebar clickLogout={clearToken} />
       </Router>
       {protectedViews()}
+      <Footer/>
     </div>
   );
 }

@@ -31,7 +31,7 @@ export default function PostCreate({
         if (isSubmitting) {
             console.log("pong");
             console.log(post);
-            fetch("http://localhost:3333/art/create", {
+            fetch("http://localhost:3003/art/create", {
                 method: "POST",
                 body: JSON.stringify({ post }),
                 headers: {
@@ -67,26 +67,6 @@ export default function PostCreate({
         console.log(file);
         if (file) {
             //second if else statement to limit types of images, png, jpg, gif.
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setBase64String(e.target.result);
-                setPost({ ...post, url: e.target.result });
-                console.log(post, e.target.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setPost({ ...post, [name]: value });
-    };//setting the post state to the value of the input
-
-    const imageUpload64 = (event) => {//set post request to send image to server
-        const file = document.getElementById('url').files[0];
-        console.log(file);
-        if (file) {
-            //second if else statement to limit types of images, png, jpg, gif. 
             const reader = new FileReader();
             reader.onload = (e) => {
                 setBase64String(e.target.result);
