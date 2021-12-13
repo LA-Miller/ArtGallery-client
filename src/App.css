@@ -137,3 +137,9 @@
 #logout-btn{
   background-color: #7209B7;
 }
+
+#create-post-btn {
+  background-color: #4CC9F0;
+  margin-right: 15px;
+  
+}

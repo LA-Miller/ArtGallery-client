@@ -1,6 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+} from "reactstrap";
 
 export default function PostCreate({
   artist_name,
@@ -23,6 +33,7 @@ export default function PostCreate({
   }); //creating post state and setting the state to the post object
   const [isSubmitting, setIsSubmitting] = useState(false); //creating isSubmitting state and setting the state to the isSubmitting boolean
   const [base64String, setBase64String] = useState(""); //creating base64String state and setting the state to the base64String string
+  const [isOpen, setIsOpen] = useState(false);
 
   //http://localhost:3333/art/create
   //https://lam-art-gallery-server.herokuapp.com/art/create
@@ -36,7 +47,7 @@ export default function PostCreate({
         body: JSON.stringify({ post }),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem('token')}`, // ${localStorage.getItem('token')}
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // ${localStorage.getItem('token')}
         },
       })
         .then((res) => res.json()) //returns a promise in json format
@@ -77,85 +88,113 @@ export default function PostCreate({
     }
   };
 
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <Form>
-      <FormGroup>
-        <Label for="artist_name">Artist Name</Label>
-        <Input
-          type="text"
-          name="artist_name"
-          id="artist_name"
-          placeholder="Artist Name"
-          value={post.artist_name}
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="url">Url</Label>
-        <Input
-          accept="jpg, jpeg, png"
-          type="file"
-          name="url"
-          id="url"
-          placeholder="https://www.example.com"
-          onChange={imageUpload64}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="description">Description</Label>
-        <Input
-          type="text"
-          name="description"
-          id="description"
-          placeholder="Description"
-          value={post.description}
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="style">Style</Label>
-        <Input
-          type="textarea"
-          name="style"
-          id="style"
-          placeholder="Style"
-          value={post.style}
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="era">Era</Label>
-        <Input
-          type="text"
-          name="era"
-          id="era"
-          placeholder="Era"
-          value={post.era}
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="for_sale">For Sale</Label>
-        <Input
-          type="checkbox"
-          name="for_sale"
-          id="for_sale"
-          placeholder="For Sale"
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label for="price">Price</Label>
-        <Input
-          type="number"
-          name="price"
-          id="price"
-          placeholder="Price"
-          value={post.price}
-          onChange={handleInputChange}
-        />
-      </FormGroup>
-      <Button onClick={() => setIsSubmitting(true)}>Post Art</Button>
-    </Form>
+    <div>
+      <Button id="create-post-btn" onClick={() => toggle()}>
+        Create A Post
+      </Button>
+      <Modal
+        centered
+        fullscreen="xl"
+        scrollable
+        size="xl"
+        toggle={() => toggle()}
+        isOpen={isOpen}
+      >
+        <ModalHeader closeButton>Add to the Gallery</ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup>
+              <Label for="artist_name">Artist Name</Label>
+              <Input
+                type="text"
+                name="artist_name"
+                id="artist_name"
+                placeholder="Artist Name"
+                value={post.artist_name}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="url">Upload Your Art</Label>
+              <Input
+                accept="jpg, jpeg, png"
+                type="file"
+                name="url"
+                id="url"
+                placeholder="https://www.example.com"
+                onChange={imageUpload64}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="description">Description</Label>
+              <Input
+                type="text"
+                name="description"
+                id="description"
+                placeholder="Description"
+                value={post.description}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="style">Style</Label>
+              <Input
+                type="textarea"
+                name="style"
+                id="style"
+                placeholder="Style"
+                value={post.style}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="era">Era</Label>
+              <Input
+                type="text"
+                name="era"
+                id="era"
+                placeholder="Era"
+                value={post.era}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="for_sale">For Sale</Label>
+              <Input
+                type="checkbox"
+                name="for_sale"
+                id="for_sale"
+                placeholder="For Sale"
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="price">Price</Label>
+              <Input
+                type="number"
+                name="price"
+                id="price"
+                placeholder="Price"
+                value={post.price}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+          </Form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => setIsSubmitting(true)}>
+            Post Art To Gallery
+          </Button>{" "}
+          <Button variant="danger" onClick={() => toggle()}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </div>
   );
 }

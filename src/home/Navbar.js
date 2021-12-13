@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import logo from "../logo.svg";
 import "../App.css";
 import {
   Collapse,
@@ -24,10 +24,8 @@ const Sitebar = (props) => {
 
   const createPost = () => {
     console.log("create");
-    return(
-      <PostCreate />
-    )
-  }
+    return <PostCreate />;
+  };
 
   return (
     <Navbar color="faded" light expand="md">
@@ -37,21 +35,12 @@ const Sitebar = (props) => {
       <NavbarToggler onClick={toggle} />
       <Collapse className="moveToEnd" isOpen={isOpen} navbar>
         <Nav className="nav">
+          {!!localStorage.getItem("token") && <PostCreate />}
           {!!localStorage.getItem("token") && (
             <NavItem className="logout">
               <Button id="logout-btn" onClick={props.clickLogout}>
                 Logout
               </Button>
-            </NavItem>
-          )}
-          {!!localStorage.getItem("token") && (
-            <NavItem className="create-post">
-              <li>
-                <Link to="/PostCreate">Create Art Post</Link>
-              </li>
-              <Switch>
-                <Route exact path="/PostCreate"><PostCreate /></Route>
-              </Switch>
             </NavItem>
           )}
         </Nav>
