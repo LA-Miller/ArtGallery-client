@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Sitebar from "../home/Navbar";
-import PostCreate from "./PostCreate";
 import ImageSlider from "../home/ImageSlider";
 import { SliderData } from "../home/SliderData";
 import {
@@ -61,7 +59,11 @@ const PostIndex = (props) => {
         <Row>
           <Col md="2"></Col>
           <Col md="8">
-            <Card style={{ width: "100", height: "100", margin:"20px" }} key={index} className="box">
+            <Card
+              style={{ width: "100", height: "100", margin: "20px" }}
+              key={index}
+              className="box"
+            >
               <CardImg variant="top" src={data[index].url} />
               <CardBody>
                 <CardTitle></CardTitle>
@@ -87,9 +89,11 @@ const PostIndex = (props) => {
   };
 
   return (
-    <div className="main"><ImageSlider slides={SliderData}</div>;
-    <div className="grid">{data.map(renderCard)}</div>; 
-)
+    <div>
+      <ImageSlider slides={SliderData} />
+      <div className="grid">{data.map(renderCard)}</div>
+    </div>
+  );
 };
 
 export default PostIndex;
