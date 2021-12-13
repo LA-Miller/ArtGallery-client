@@ -138,6 +138,13 @@
   background-color: #7209B7;
 }
 
+footer {
+  background-color:rgb(114,9,183);
+  color:white;
+  padding: 20px;
+  text-align: center;
+}
+
 #create-post-btn {
   background-color: #4CC9F0;
   margin-right: 15px;
