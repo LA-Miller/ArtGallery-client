@@ -25,13 +25,6 @@ import { render } from "@testing-library/react";
 
 const PostIndex = (props) => {
   const [data, setData] = useState([]);
-  const [artistName, setArtistName] = useState([]);
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [style, setStyle] = useState("");
-  const [era, setEra] = useState("");
-  const [forSale, setForSale] = useState(true);
-  const [price, setPrice] = useState("");
 
   //http://localhost:3333/art/
   //https://lam-art-gallery-server.herokuapp.com/art/
@@ -60,39 +53,43 @@ const PostIndex = (props) => {
       const myResults = await fetchPosts();
     }
   }, [data]);
-  
+
   const renderCard = (card, index) => {
-    let i = 0;
-    return(
-      <Card style={{ width: "18rem" }} key={index} className="box">
-      <CardImg variant="top" src={data[index].image} />
-      <CardBody>
-        <CardTitle></CardTitle>
-        <CardText></CardText>
-      </CardBody>
-      <ListGroup className="list-group-flush">
-        <ListGroupItem>
-          By: {data[index].artist_name}
-        </ListGroupItem>
-        <ListGroupItem>
-          Description: <br /> {data[index].description} <br /> Style: {data[index].style} <br /> Era: {data[index].era}
-        </ListGroupItem>
-        <ListGroupItem>
-          For Sale: {!data[index].forSale ? "Yes" : "No"} <br /> Price: ${data[index].price}
-        </ListGroupItem>
-      </ListGroup>
-    </Card> 
-    )
-  }
+    let index2 = index + 1;
+    return (
+      <Container>
+        <Row>
+          <Col md="2"></Col>
+          <Col md="8">
+            <Card style={{ width: "100", height: "100", margin:"20px" }} key={index} className="box">
+              <CardImg variant="top" src={data[index].url} />
+              <CardBody>
+                <CardTitle></CardTitle>
+                <CardText></CardText>
+              </CardBody>
+              <ListGroup className="list-group-flush">
+                <ListGroupItem>By: {data[index].artist_name}</ListGroupItem>
+                <ListGroupItem>
+                  Description: <br /> {data[index].description} <br /> Style:{" "}
+                  {data[index].style} <br /> Era: {data[index].era}
+                </ListGroupItem>
+                <ListGroupItem>
+                  For Sale: {!data[index].forSale ? "Yes" : "No"} <br /> Price:
+                  ${data[index].price}
+                </ListGroupItem>
+              </ListGroup>
+            </Card>
+          </Col>
+          <Col md="2"></Col>
+        </Row>
+      </Container>
+    );
+  };
 
   return (
-    <div className="main">
-      <ImageSlider slides={SliderData} />;
-      <div className="mainDiv">
-        {data.map(renderCard)}
-      </div>
-    </div>
-  );
+    <div className="main"><ImageSlider slides={SliderData}</div>;
+    <div className="grid">{data.map(renderCard)}</div>; 
+)
 };
 
 export default PostIndex;

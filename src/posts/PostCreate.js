@@ -36,7 +36,7 @@ export default function PostCreate({
         body: JSON.stringify({ post }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // ${localStorage.getItem('token')}
+          "Authorization": `Bearer ${localStorage.getItem('token')}`, // ${localStorage.getItem('token')}
         },
       })
         .then((res) => res.json()) //returns a promise in json format
