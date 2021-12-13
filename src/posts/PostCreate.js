@@ -1,41 +1,55 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-export default function PostCreate({artist_name,url,description,style,era, for_sale, price, token}) { 
-  const [post, setPost] = useState({artist_name,url,description,style,era,for_sale,price});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showAll, setShowAll] = useState(false); //show all the fields may need to be removed
+export default function PostCreate({
+  artist_name,
+  url,
+  description,
+  style,
+  era,
+  for_sale,
+  price,
+}) {
+  //exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
+  const [post, setPost] = useState({
+    artist_name,
+    url,
+    description,
+    style,
+    era,
+    for_sale,
+    price,
+  }); //creating post state and setting the state to the post object
+  const [isSubmitting, setIsSubmitting] = useState(false); //creating isSubmitting state and setting the state to the isSubmitting boolean
+  const [base64String, setBase64String] = useState(""); //creating base64String state and setting the state to the base64String string
 
-  const [base64String, setBase64String] = useState("");
-  console.log(token);
-
+  //http://localhost:3333/art/create
+  //https://lam-art-gallery-server.herokuapp.com/art/create
   useEffect(() => {
+    console.log("ping");
     if (isSubmitting) {
-      setIsSubmitting(false);
-      console.log(isSubmitting);
+      console.log("pong");
       console.log(post);
-      fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
+      fetch("http://localhost:3333/art/create", {
         method: "POST",
-        body: JSON.stringify({
-          log: {
-            artist_name: artist_name,
-            url: base64String,
-            description: description,
-            style: style,
-            era: era,
-            for_sale: for_sale,
-            price: price,
-          },
-        }),
+        body: JSON.stringify({ post }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`, // ${localStorage.getItem('token')}
         },
       })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((res) => res.json()) //returns a promise in json format
+        .then((data) => {
+          console.log(data);
+          setIsSubmitting(false); //setting it back to false so it does not keep running
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsSubmitting(false);
+        });
     }
-  }, [isSubmitting]);
+  }, [isSubmitting]); //setting the isSubmitting state to false when the form is submitted
 
   useEffect(() => {
     console.log(base64String);
@@ -43,17 +57,12 @@ export default function PostCreate({artist_name,url,description,style,era, for_s
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    console.log({ ...post, [name]: value });
     setPost({ ...post, [name]: value });
-  };
+  }; //setting the post state to the value of the input
 
   const imageUpload64 = (event) => {
-    //set post request to send image to
-    let img64 = "";
-    // getBase64(event.target.files[0], (result) => {
-    //     img64 = result;
-    //     console.log(result);
-    //     setPost({ ...post, url: img64 });
-    // });
+    //set post request to send image to server
     const file = document.getElementById("url").files[0];
     console.log(file);
     if (file) {
@@ -61,32 +70,15 @@ export default function PostCreate({artist_name,url,description,style,era, for_s
       const reader = new FileReader();
       reader.onload = (e) => {
         setBase64String(e.target.result);
+        setPost({ ...post, url: e.target.result });
+        console.log(post, e.target.result);
       };
       reader.readAsDataURL(file);
     }
-
-    function getBase64(file, cb) {
-      let reader = new FileReader();
-      reader.onload = function () {
-        cb(reader.result);
-      };
-      reader.onerror = function (error) {
-        console.log("Error: ", error);
-      };
-    }
   };
 
-  // const imageRender64 = (event) => {
-  //     let decoded = base64decode(encoded)
-  // }
   return (
-    <Form
-      onSubmit={(event) => {
-        event.preventDefault();
-        console.log(post);
-        setIsSubmitting(true);
-      }}
-    >
+    <Form>
       <FormGroup>
         <Label for="artist_name">Artist Name</Label>
         <Input
@@ -106,7 +98,6 @@ export default function PostCreate({artist_name,url,description,style,era, for_s
           name="url"
           id="url"
           placeholder="https://www.example.com"
-          value={post.url}
           onChange={imageUpload64}
         />
       </FormGroup>
@@ -146,18 +137,17 @@ export default function PostCreate({artist_name,url,description,style,era, for_s
       <FormGroup>
         <Label for="for_sale">For Sale</Label>
         <Input
-          type="textarea"
+          type="checkbox"
           name="for_sale"
           id="for_sale"
           placeholder="For Sale"
-          value={post.for_sale}
           onChange={handleInputChange}
         />
       </FormGroup>
       <FormGroup>
         <Label for="price">Price</Label>
         <Input
-          type="textarea"
+          type="number"
           name="price"
           id="price"
           placeholder="Price"
@@ -165,7 +155,7 @@ export default function PostCreate({artist_name,url,description,style,era, for_s
           onChange={handleInputChange}
         />
       </FormGroup>
-      <Button>Submit</Button>
+      <Button onClick={() => setIsSubmitting(true)}>Post Art</Button>
     </Form>
   );
 }
