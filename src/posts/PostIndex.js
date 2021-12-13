@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import Sitebar from "../home/Navbar";
+import PostCreate from "./PostCreate";
+import ImageSlider from "../home/ImageSlider";
+import { SliderData } from "../home/SliderData";
 import {
   Container,
   Row,
@@ -17,7 +22,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
 import { render } from "@testing-library/react";
-//import PostCreate from "./PostCreate";
 
 const PostIndex = (props) => {
   const [data, setData] = useState([]);
@@ -83,7 +87,8 @@ const PostIndex = (props) => {
 
   return (
     <div className="main">
-      <div className="grid">
+      <ImageSlider slides={SliderData} />;
+      <div className="mainDiv">
         {data.map(renderCard)}
       </div>
     </div>
