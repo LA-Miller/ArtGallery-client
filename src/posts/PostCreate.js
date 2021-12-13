@@ -2,22 +2,23 @@ import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 
-export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, owner_id }) {//exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
-    const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, owner_id });//creating post state and setting the state to the post object
+export default function PostCreate({ artist_name, url, description, style, era, for_sale, price, }) {//exporting and setting to default namespace to PostCreate and destructuring the props object to create an object of the listed items
+    const [post, setPost] = useState({ artist_name, url, description, style, era, for_sale, price, });//creating post state and setting the state to the post object
     const [isSubmitting, setIsSubmitting] = useState(false);//creating isSubmitting state and setting the state to the isSubmitting boolean
     const [base64String, setBase64String] = useState('');//creating base64String state and setting the state to the base64String string
 
     useEffect(() => {
         console.log('ping')
         if (isSubmitting) {
+        
             console.log('pong')
             console.log(post);
-            fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
+            fetch('http://127.0.0.1:3003/art/create', {
                 method: 'POST',
                 body: JSON.stringify({ post }),
                 headers: ({
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${token}`// ${localStorage.getItem('token')}
+                    'Authorization': `Bearer  ${localStorage.getItem('token')}`
                 })
             })
                 .then(res => res.json())//returns a promise in json format
@@ -45,7 +46,7 @@ export default function PostCreate({ artist_name, url, description, style, era, 
         console.log("Error: ", error);
       };
     }
-  };
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -161,3 +162,4 @@ export default function PostCreate({ artist_name, url, description, style, era, 
             </Form>
         );
     }
+}
