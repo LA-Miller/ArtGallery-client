@@ -24,12 +24,14 @@ export default function PostCreate({
   const [isSubmitting, setIsSubmitting] = useState(false); //creating isSubmitting state and setting the state to the isSubmitting boolean
   const [base64String, setBase64String] = useState(""); //creating base64String state and setting the state to the base64String string
 
+  //http://localhost:3333/art/create
+  //https://lam-art-gallery-server.herokuapp.com/art/create
   useEffect(() => {
     console.log("ping");
     if (isSubmitting) {
       console.log("pong");
       console.log(post);
-      fetch("https://lam-art-gallery-server.herokuapp.com/art/create", {
+      fetch("http://localhost:3333/art/create", {
         method: "POST",
         body: JSON.stringify({ post }),
         headers: {

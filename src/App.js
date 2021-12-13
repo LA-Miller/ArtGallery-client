@@ -4,8 +4,11 @@ import Sitebar from "./home/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import PostIndex from "./posts/PostIndex";
+import {
+  BrowserRouter as Router
+} from 'react-router-dom';
 
-function App (props) {
+function App(props) {
   const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
@@ -35,9 +38,11 @@ function App (props) {
 
   return (
     <div className="App">
-      <Sitebar clickLogout={clearToken} />
+      <Router>
+        <Sitebar clickLogout={clearToken} />
+      </Router>
       {protectedViews()}
-    </div> 
+    </div>
   );
 }
 
