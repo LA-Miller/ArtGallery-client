@@ -21,13 +21,6 @@ import { render } from "@testing-library/react";
 
 const PostIndex = (props) => {
   const [data, setData] = useState([]);
-  const [artistName, setArtistName] = useState([]);
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [style, setStyle] = useState("");
-  const [era, setEra] = useState("");
-  const [forSale, setForSale] = useState(true);
-  const [price, setPrice] = useState("");
 
   //http://localhost:3333/art/
   //https://lam-art-gallery-server.herokuapp.com/art/
