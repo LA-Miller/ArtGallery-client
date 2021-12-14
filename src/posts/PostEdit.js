@@ -53,7 +53,7 @@ const PostEdit = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getUserPosts = async () => {
-    const response = await fetch(`http://localhost:3333/art/user`, {
+    const response = await fetch(`http://localhost:3003/art/user`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const PostEdit = (props) => {
 
   const deletePost = (post) => {
     console.log("posts", post)
-    fetch(`http://localhost:3333/art/${post.id}`, {
+    fetch(`http://localhost:3003/art/${post.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const PostEdit = (props) => {
     if (data.length < 1) {
       const myResults = await getUserPosts();
     }
-  }, [data]);
+  }, []);
 
   const renderCard = (card, index) => {
     return (
