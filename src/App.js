@@ -4,9 +4,7 @@ import Sitebar from "./home/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import PostIndex from "./posts/PostIndex";
-import {
-  BrowserRouter as Router
-} from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import Footer from "./home/Footer";
 
 function App(props) {
@@ -39,11 +37,9 @@ function App(props) {
 
   return (
     <div className="App">
-      <Router>
-        <Sitebar clickLogout={clearToken} />
-      </Router>
+      <Sitebar clickLogout={clearToken} />
       {protectedViews()}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

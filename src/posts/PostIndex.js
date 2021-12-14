@@ -16,7 +16,6 @@ import {
   CardText,
   CardLink,
 } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.css";
 import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
 import { render } from "@testing-library/react";
@@ -27,7 +26,7 @@ const PostIndex = (props) => {
   //http://localhost:3333/art/
   //https://lam-art-gallery-server.herokuapp.com/art/
   const fetchPosts = async () => {
-    const response = await fetch("http://localhost:3003/art/", {
+    const response = await fetch("http://localhost:3333/art/", {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
