@@ -12,6 +12,7 @@ import {
   Button,
 } from "reactstrap";
 import PostCreate from "../posts/PostCreate";
+import PostEdit from "../posts/PostEdit";
 import PostIndex from "../posts/PostIndex";
 
 const Sitebar = (props) => {
@@ -36,6 +37,7 @@ const Sitebar = (props) => {
       <Collapse className="moveToEnd" isOpen={isOpen} navbar>
         <Nav className="nav">
           {!!localStorage.getItem("token") && <PostCreate />}
+          {!!localStorage.getItem("token") && <PostEdit />}
           {!!localStorage.getItem("token") && (
             <NavItem className="logout">
               <Button id="logout-btn" onClick={props.clickLogout}>
