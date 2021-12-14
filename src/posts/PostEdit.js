@@ -66,22 +66,23 @@ const PostEdit = (props) => {
       })
       .then((data) => {
         setData(data);
-        console.log("data:", data);
+        // console.log("data:", data);
       });
 
     return response;
   };
 
   const deletePost = (post) => {
-    console.log("posts", post)
-    fetch(`http://localhost:3003/art/${post.id}`, {
+    console.log(post);
+    console.log("Post deleted");
+    fetch(`http://localhost:3003/art/${post}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-      })
+      }),
     })
-    .then(() => getUserPosts())
+      .then(() => getUserPosts());
   };
 
   useEffect(async () => {
@@ -91,6 +92,7 @@ const PostEdit = (props) => {
   }, []);
 
   const renderCard = (card, index) => {
+    console.log(card);
     return (
       <Container>
         <Row>
@@ -117,7 +119,9 @@ const PostEdit = (props) => {
                   ${data[index].price}
                 </ListGroupItem>
               </ListGroup>
-              <Button variant="danger" onClick={deletePost}>Delete</Button>
+              <Button variant="danger" onClick={() => deletePost(card?.id)}>
+                Delete
+              </Button>
             </Card>
           </Col>
           <Col md="2"></Col>
