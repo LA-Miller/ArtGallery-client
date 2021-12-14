@@ -30,7 +30,9 @@ export default function PostCreate({
         era,
         for_sale,
         price,
+        
     }); //creating post state and setting the state to the post object
+    const [isOpen, setIsOpen] = useState(false); //creating isOpen state and setting the state to false
     const [isSubmitting, setIsSubmitting] = useState(false); //creating isSubmitting state and setting the state to the isSubmitting boolean
     const [base64String, setBase64String] = useState(""); //creating base64String state and setting the state to the base64String string
 
@@ -86,89 +88,6 @@ export default function PostCreate({
             reader.readAsDataURL(file);
         }
     };
-
-    return (
-        <Form>
-            <FormGroup>
-                <Label for="artist_name">Artist Name</Label>
-                <Input
-                    type="text"
-                    name="artist_name"
-                    id="artist_name"
-                    placeholder="Artist Name"
-                    value={post.artist_name}
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="url">Url</Label>
-                <Input
-                    accept="jpg, jpeg, png"
-                    type="file"
-                    name="url"
-                    id="url"
-                    placeholder="https://www.example.com"
-                    onChange={imageUpload64}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="description">Description</Label>
-                <Input
-                    type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Description"
-                    value={post.description}
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="style">Style</Label>
-                <Input
-                    type="textarea"
-                    name="style"
-                    id="style"
-                    placeholder="Style"
-                    value={post.style}
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="era">Era</Label>
-                <Input
-                    type="text"
-                    name="era"
-                    id="era"
-                    placeholder="Era"
-                    value={post.era}
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="for_sale">For Sale</Label>
-                <Input
-                    type="checkbox"
-                    name="for_sale"
-                    id="for_sale"
-                    placeholder="For Sale"
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <FormGroup>
-                <Label for="price">Price</Label>
-                <Input
-                    type="number"
-                    name="price"
-                    id="price"
-                    placeholder="Price"
-                    value={post.price}
-                    onChange={handleInputChange}
-                />
-            </FormGroup>
-            <Button onClick={() => setIsSubmitting(true)}>Post Art</Button>
-        </Form>
-    );
-
     const toggle = () => {
         setIsOpen(!isOpen);
     };
