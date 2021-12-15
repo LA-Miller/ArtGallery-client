@@ -20,7 +20,7 @@ import Sitebar from "../home/Navbar";
 import PostCreate from "./PostCreate";
 import { render } from "@testing-library/react";
 
-const PostIndex = (props) => {
+const PostIndex = () => {
   const [data, setData] = useState([]);
 
   //http://localhost:3333/art/
@@ -52,7 +52,6 @@ const PostIndex = (props) => {
   }, [data]);
 
   const renderCard = (card, index) => {
-    let index2 = index + 1;
     return (
       <Container>
         <Row>
@@ -61,12 +60,10 @@ const PostIndex = (props) => {
             <Card
               style={{ width: "100", height: "100", margin: "20px" }}
               key={index}
-              className="box"
+              className='box'
             >
               <CardImg variant="top" src={data[index].url} />
               <CardBody>
-                <CardTitle></CardTitle>
-                <CardText></CardText>
               </CardBody>
               <ListGroup className="list-group-flush">
                 <ListGroupItem>By: {data[index].artist_name}</ListGroupItem>
