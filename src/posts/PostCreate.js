@@ -42,7 +42,7 @@ export default function PostCreate({
     if (isSubmitting) {
       console.log("pong");
       console.log(post);
-      fetch("http://localhost:3333/art/create", {
+      fetch("http://localhost:3003/art/create", {
         method: "POST",
         body: JSON.stringify({ post }),
         headers: {
