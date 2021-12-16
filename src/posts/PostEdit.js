@@ -35,20 +35,22 @@ const PostEdit = (props) => {
     const [for_sale, setEditForSale] = useState(props.for_sale);
     const [price, setEditPrice] = useState(props.price);
     const [editMode, setEditMode] = useState(false);
+    const [updateFields,setUpdateFields] = useState({});
 
-    const artPostUpdate = (post, e) => {
-        console.log(post);
+    const artPostUpdate = (postId, e) => {
+        console.log(postId);
+        fetch(`http://localhost:3003/art/update/${postId}`, {
+            method: "PUT",
+            body: JSON.stringify(postId),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`, 
+            },
+         })
+            
 
-
-
-        // e.preventDefault();
-        // const artPost = await fetch(`http://localhost:3003/art/update/${post}`, {
-        //     method: "PUT",
-        //     body: JSON.stringify({
-        // props.updateArtPost(props.id, artPost);
-        // props.history.push("/art-posts");
-    }
-
+        //.then( getUserPosts => res.json(getUserPosts))
+    };
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         console.log({ ...data, [name]: value });
@@ -57,7 +59,6 @@ const PostEdit = (props) => {
 
 
     const handleUpdate = (e) => {
-        artPostUpdate();
         setEditMode(!editMode);
 
     }
@@ -82,10 +83,10 @@ const PostEdit = (props) => {
         return response;
     };
 
-    const deletePost = (post) => {
-        console.log(post);
+    const deletePost = (postId) => {
+        console.log(postId);
         console.log("Post deleted");
-        fetch(`http://localhost:3003/art/${post}`, {
+        fetch(`http://localhost:3003/art/${postId}`, {
             method: "DELETE",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -98,7 +99,7 @@ const PostEdit = (props) => {
     useEffect(async () => {
         if (data.length < 1) {
             const myResults = await getUserPosts();
-            artPostUpdate();
+        
         }
     }, []);
 
@@ -120,21 +121,21 @@ const PostEdit = (props) => {
                                 <CardText></CardText>
                             </CardBody>
                             <ListGroup className="list-group-flush">
-
                                 <ListGroupItem >By:
-                                    <div contentEditable={editMode}>{data[index].artist_name}</div> </ListGroupItem>
-                                <ListGroupItem >
-                                    Description: <div contentEditable={editMode}>{data[index].description}</div>
-                                    Style:{" "}<div contentEditable={editMode}>{data[index].style} </div>
-                                    Era:<div contentEditable={editMode}>{data[index].era}</div>
+                                    <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].artist_name}</Input> </ListGroupItem>
+                                <ListGroupItem>
+                                    Description: <div onChange={handleInputChange} contentEditable={editMode}>{data[index].description}</div>
+                                    Style:{" "}<div onChange={handleInputChange} contentEditable={editMode}>{data[index].style} </div>
+                                    Era:<div onChange={handleInputChange} contentEditable={editMode}>{data[index].era}</div>
                                 </ListGroupItem>
                                 <ListGroupItem>
-                                    <h5>For Sale:</h5> <div contentEditable={editMode}> {!data[index].forSale ? "Yes" : "No"}</div>
+                                    <h5>For Sale:</h5> <div onChange={handleInputChange} contentEditable={editMode}> {!data[index].forSale ? "Yes" : "No"}</div>
                                     <br />
-                                    Price:<div contentEditable={editMode}>${data[index].price}</div>
+                                    Price:<div onChange={handleInputChange} contentEditable={editMode}>${data[index].price}</div>
                                 </ListGroupItem>
                             </ListGroup>
-                            <Button onClick={() => handleUpdate()}>Update Post</Button>
+                            <Button onClick={() => handleUpdate()}>Edit Post</Button>
+                            <Button onClick={() => artPostUpdate(card?.id)}>Update Post</Button>
                             <Button variant="danger" onClick={() => deletePost(card?.id)}>
                                 Delete
                             </Button>
@@ -172,9 +173,10 @@ const PostEdit = (props) => {
                 <ModalFooter>
                     <Button
                         color="primary"
-                        onClick={() => {
+                        onClick={(e) => {
                             setIsSubmitting(true);
                             setIsOpen(false);
+                            artPostUpdate(e);
                         }}
                     >
                         Post Art To Gallery
