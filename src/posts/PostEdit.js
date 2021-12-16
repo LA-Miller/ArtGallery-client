@@ -23,11 +23,12 @@ import {
 
 
 
+
 const PostEdit = (props) => {
     const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [artist_name, setEditArtistName] = useState(props.artist_name);
+    const [artistName, setEditArtistName] = useState("");
     const [url, setEditUrl] = useState(props.url);
     const [description, setEditDescription] = useState(props.description);
     const [style, setEditStyle] = useState(props.style);
@@ -35,13 +36,28 @@ const PostEdit = (props) => {
     const [for_sale, setEditForSale] = useState(props.for_sale);
     const [price, setEditPrice] = useState(props.price);
     const [editMode, setEditMode] = useState(false);
-    const [updateFields,setUpdateFields] = useState({});
+    const [updateFields,setUpdateFields] = useState({
+        artist_name,
+        url,
+        description,
+        style,
+        era,
+        for_sale,
+        price,
+      }); //creating post state and setting the state to the post object});
 
     const artPostUpdate = (postId, e) => {
         console.log(postId);
+        console.log(updateFields)
         fetch(`http://localhost:3003/art/update/${postId}`, {
             method: "PUT",
-            body: JSON.stringify(postId),
+            body: JSON.stringify( {artist_name: artistName,
+                url,
+                description,
+                style,
+                era,
+                for_sale,
+                price,}),
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`, 
@@ -49,12 +65,13 @@ const PostEdit = (props) => {
          })
             
 
-        //.then( getUserPosts => res.json(getUserPosts))
+        .then( () => getUserPosts())
     };
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        console.log({ ...data, [name]: value });
-        setData({ ...data, [name]: value });
+        console.log({ ...updateFields, [name]: value });
+        setUpdateFields({ ...updateFields, [name]: value });
+
     }; //setting the post state to the value of the input
 
 
@@ -104,7 +121,7 @@ const PostEdit = (props) => {
     }, []);
 
     const renderCard = (card, index) => {
-        console.log(card);
+        // console.log(card);
         return (
             <Container>
                 <Row>
@@ -122,16 +139,18 @@ const PostEdit = (props) => {
                             </CardBody>
                             <ListGroup className="list-group-flush">
                                 <ListGroupItem >By:
-                                    <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].artist_name}</Input> </ListGroupItem>
+                                    {editMode ? <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].artist_name}</Input>:<div contentEditable={editMode}>{data[index].artist_name}</div> }
+                                    </ListGroupItem>
                                 <ListGroupItem>
-                                    Description: <div onChange={handleInputChange} contentEditable={editMode}>{data[index].description}</div>
-                                    Style:{" "}<div onChange={handleInputChange} contentEditable={editMode}>{data[index].style} </div>
-                                    Era:<div onChange={handleInputChange} contentEditable={editMode}>{data[index].era}</div>
+                                    Description: {editMode ? <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].description}</Input>:<div contentEditable={editMode}>{data[index].description}</div> }
+                                    Style:{editMode ? <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].style}</Input>:<div contentEditable={editMode}>{data[index].style}</div> }
+                                    Era:{editMode ? <Input onChange={handleInputChange} contentEditable={editMode}>{data[index].era}</Input>:<div contentEditable={editMode}>{data[index].era}</div> }
                                 </ListGroupItem>
                                 <ListGroupItem>
-                                    <h5>For Sale:</h5> <div onChange={handleInputChange} contentEditable={editMode}> {!data[index].forSale ? "Yes" : "No"}</div>
+                                    <h5>For Sale:</h5> 
+                                    {editMode ? <Input type="checkbox" onChange={handleInputChange} contentEditable={editMode}>{data[index].for_sale}</Input>:<div contentEditable={editMode}>{!data[index].for_sale ? "Yes" : "No"}</div> }
                                     <br />
-                                    Price:<div onChange={handleInputChange} contentEditable={editMode}>${data[index].price}</div>
+                                    Price:{editMode ? <Input type="number"  min="1" onChange={handleInputChange} contentEditable={editMode}>{data[index].price}</Input>:<div contentEditable={editMode}>{data[index].price}</div> }
                                 </ListGroupItem>
                             </ListGroup>
                             <Button onClick={() => handleUpdate()}>Edit Post</Button>
