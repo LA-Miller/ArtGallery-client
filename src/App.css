@@ -143,13 +143,17 @@ footer {
   height: fit-content;
   width: 110px;
   background-color: #7209b7;
+  font-weight: 600;
+  border: 3px solid #7209b7;
 }
 
 #create-post-btn {
   height: fit-content;
-  width: 110px;
+  width: 130px;
   background-color: #4cc9f0;
   margin-right: 15px;
+  font-weight: 600;
+  border: 3px solid #4cc9f0;
 }
 
 #edit-post-btn {
@@ -157,6 +161,20 @@ footer {
   width: 110px;
   background-color: #b5169e;
   margin-right: 15px;
+  font-weight: 600;
+  border: 3px solid #b5169e;
+}
+
+#create-post-btn:hover {
+  border: 3px solid #ffaa01;
+}
+
+#edit-post-btn:hover {
+  border: 3px solid #ffaa01;
+}
+
+#logout-btn:hover {
+  border: 3px solid #ffaa01;
 }
 
 .box {
@@ -179,11 +197,21 @@ footer {
 #delete-btn {
   height: fit-content;
   width: 30%;
+  border: 3px solid red;
+}
+
+#delete-btn:hover {
+  border: 3px solid #ffaa01;
 }
 
 #edit-btn {
   height: fit-content;
   width: 30%;
+  border: 3px solid #4cc9f0;
+}
+
+#edit-btn:hover {
+  border: 3px solid #ffaa01;
 }
 
 #edit-buttons {
@@ -191,6 +219,35 @@ footer {
   justify-content: space-between;
 }
 
+#update-post-btn {
+  border: 3px solid #F72485;
+}
+
+#update-post-btn:hover {
+  border: 3px solid #ffaa01;
+}
+
+#close-edit-btn {
+  background-color: #7208B7;
+  border: 3px solid #7208B7;
+}
+
+#close-edit-btn:hover {
+  border: 3px solid #ffaa01;
+}
+
+#card:hover {
+  transform: translate3D(0, -1px, 0) scale(1.1);
+}
+
 /* .grid > div {
   flex-basis: calc(20% - 40px);
 } */
+
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto:wght@100;700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond&family=Fredericka+the+Great&family=Roboto:wght@100;700&family=Titillium+Web&display=swap");
+
+body {
+  font-family: "Titillium Web", sans-serif;
+}

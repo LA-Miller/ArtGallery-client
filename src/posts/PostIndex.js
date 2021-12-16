@@ -54,9 +54,10 @@ const PostIndex = () => {
   const renderCard = (card, index) => {
     return (
       <Card
-        style={{ width: "300px", height: "100%", margin: "20px" }}
+        style={{ width: "300px", height: "100%", margin: "25px" }}
         key={index}
         className="box"
+        id="card"
       >
         <CardImg
           variant="top"
@@ -66,7 +67,7 @@ const PostIndex = () => {
         />
         <ListGroup className="list-group-flush">
           <ListGroupItem>
-            <b>Artist:</b> {data[index].artist_name}
+            <h5><b>Artist</b>:</h5> {data[index].artist_name}
           </ListGroupItem>
           <ListGroupItem>
             <b>Description:</b> <br /> {data[index].description} <br />{" "}

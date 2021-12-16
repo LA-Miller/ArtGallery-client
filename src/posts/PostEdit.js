@@ -194,7 +194,8 @@ const PostEdit = (props) => {
         </ModalBody>
         <ModalFooter>
           <Button
-            color="primary"
+            style={{ backgroundColor: "#F72485"}}
+            id="update-post-btn"
             onClick={() => {
               setIsSubmitting(true);
               setIsOpen(false);
@@ -204,6 +205,7 @@ const PostEdit = (props) => {
           </Button>{" "}
           <Button
             variant="danger"
+            id="close-edit-btn"
             onClick={() => {
               setIsSubmitting(true);
               setIsOpen(false);
