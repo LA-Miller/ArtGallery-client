@@ -25,13 +25,12 @@ const PostEdit = (props) => {
   const [data, setData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [artist_name, setEditArtistName] = useState(props.artist_name);
-  const [url, setEditUrl] = useState(props.url);
-  const [description, setEditDescription] = useState(props.description);
-  const [style, setEditStyle] = useState(props.style);
-  const [era, setEditEra] = useState(props.era);
-  const [for_sale, setEditForSale] = useState(props.for_sale);
-  const [price, setEditPrice] = useState(props.price);
+  const [artist_name, setEditArtistName] = useState("");
+  const [description, setEditDescription] = useState("");
+  const [style, setEditStyle] = useState("");
+  const [era, setEditEra] = useState("");
+  const [for_sale, setEditForSale] = useState("");
+  const [price, setEditPrice] = useState("");
   const [editMode, setEditMode] = useState(false);
 
   // const artPostUpdate = (post, e) => {

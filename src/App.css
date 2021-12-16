@@ -240,6 +240,8 @@ footer {
   transform: translate3D(0, -1px, 0) scale(1.1);
 }
 
+#card:
+
 /* .grid > div {
   flex-basis: calc(20% - 40px);
 } */
