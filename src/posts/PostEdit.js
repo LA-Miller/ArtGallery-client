@@ -25,38 +25,56 @@ const PostEdit = (props) => {
   const [data, setData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [artist_name, setEditArtistName] = useState("");
+  const [artistName, setEditArtistName] = useState("");
+  const [url, setEditUrl] = useState("");
   const [description, setEditDescription] = useState("");
   const [style, setEditStyle] = useState("");
   const [era, setEditEra] = useState("");
-  const [for_sale, setEditForSale] = useState("");
+  const [for_sale, setEditForSale] = useState(false);
   const [price, setEditPrice] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [updateFields, setUpdateFields] = useState({
+    artist_name,
+    url,
+    description,
+    style,
+    era,
+    for_sale,
+    price,
+  }); //creating post state and setting the state to the post object});
 
-  // const artPostUpdate = (post, e) => {
-  //   console.log(post);
-  //   e.preventDefault();
-  //   const artPost = await fetch(`http://localhost:3003/art/update/${post}`, {
-  //       method: "PUT",
-  //       body: JSON.stringify({})
-
-  //   // props.updateArtPost(props.id, artPost);
-  //   // props.history.push("/art-posts");
-  // });
-
+  const artPostUpdate = (postId, e) => {
+    console.log(postId);
+    console.log(updateFields);
+    fetch(`http://localhost:3003/art/update/${postId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        artist_name: artistName,
+        url,
+        description,
+        style,
+        era,
+        for_sale,
+        price,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then(() => getUserPosts());
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log({ ...data, [name]: value });
-    setData({ ...data, [name]: value });
+    console.log({ ...updateFields, [name]: value });
+    setUpdateFields({ ...updateFields, [name]: value });
   }; //setting the post state to the value of the input
 
   const handleUpdate = (e) => {
-    // artPostUpdate();
     setEditMode(!editMode);
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(`http://localhost:3333/art/user`, {
+    const response = await fetch(`http://localhost:3003/art/user`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -68,17 +86,17 @@ const PostEdit = (props) => {
         return body;
       })
       .then((data) => {
-        setData(data.reverse());
-        console.log("data:", data);
+        setData(data);
+        // console.log("data:", data);
       });
 
     return response;
   };
 
-  const deletePost = (post) => {
-    console.log(post);
+  const deletePost = (postId) => {
+    console.log(postId);
     console.log("Post deleted");
-    fetch(`http://localhost:3333/art/${post}`, {
+    fetch(`http://localhost:3003/art/${postId}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -90,11 +108,11 @@ const PostEdit = (props) => {
   useEffect(async () => {
     if (data.length < 1) {
       const myResults = await getUserPosts();
-      // artPostUpdate();
     }
   }, []);
 
   const renderCard = (card, index) => {
+    // console.log(card);
     return (
       <Container>
         <Row>
@@ -111,55 +129,107 @@ const PostEdit = (props) => {
                 <CardText></CardText>
               </CardBody>
               <ListGroup className="list-group-flush">
-                <ListGroupItem onChange={handleInputChange}>
-                  <h6>Artist:</h6>
-                  <div contentEditable={editMode}>
-                    {data[index].artist_name}
-                  </div>{" "}
+                <ListGroupItem>
+                  By:
+                  {editMode ? (
+                    <Input
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].artist_name}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>
+                      {data[index].artist_name}
+                    </div>
+                  )}
                 </ListGroupItem>
                 <ListGroupItem>
-                  <h6>Description:</h6>{" "}
-                  <div contentEditable={editMode}>
-                    {data[index].description}
-                  </div>
-                  <br />
-                  <h6>Style:</h6>{" "}
-                  <div contentEditable={editMode}>{data[index].style} </div>
-                  <br />
-                  <h6>Era:</h6>
-                  <div contentEditable={editMode}>{data[index].era}</div>
+                  Description:{" "}
+                  {editMode ? (
+                    <Input
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].description}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>
+                      {data[index].description}
+                    </div>
+                  )}
+                  Style:
+                  {editMode ? (
+                    <Input
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].style}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>{data[index].style}</div>
+                  )}
+                  Era:
+                  {editMode ? (
+                    <Input
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].era}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>{data[index].era}</div>
+                  )}
                 </ListGroupItem>
                 <ListGroupItem>
-                  <h6>For Sale:</h6>{" "}
-                  <div contentEditable={editMode}>
-                    {" "}
-                    {!!data[index].forSale ? "Yes" : "No"}
-                  </div>
+                  <h5>For Sale:</h5>
+                  {editMode ? (
+                    <Input
+                      type="checkbox"
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].for_sale}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>
+                      {!data[index].for_sale ? "Yes" : "No"}
+                    </div>
+                  )}
                   <br />
-                  {data[index].price ? <b>Price:</b> : null}{" "}
-                  <div contentEditable={editMode}>
-                    {" "}
-                    {data[index].price ? "$" : null}
-                    {data[index].price}
-                  </div>
+                  Price:
+                  {editMode ? (
+                    <Input
+                      type="number"
+                      min="1"
+                      onChange={handleInputChange}
+                      contentEditable={editMode}
+                    >
+                      {data[index].price}
+                    </Input>
+                  ) : (
+                    <div contentEditable={editMode}>{data[index].price}</div>
+                  )}
                 </ListGroupItem>
               </ListGroup>
-              <div id="edit-buttons">
-                <Button
-                  style={{ backgroundColor: "#4CC9F0" }}
-                  id="edit-btn"
-                  onClick={() => handleUpdate()}
-                >
-                  Edit Post
-                </Button>
-                <Button
-                  style={{ backgroundColor: "red" }}
-                  id="delete-btn"
-                  onClick={() => deletePost(card?.id)}
-                >
-                  Delete Post
-                </Button>
-              </div>
+              <Button
+                style={{ backgroundColor: "#4CC9F0" }}
+                id="edit-btn"
+                onClick={() => handleUpdate()}
+              >
+                Edit Post
+              </Button>
+              <Button onClick={() => artPostUpdate(card?.id)}>
+                Update Post
+              </Button>
+              <Button
+                style={{ backgroundColor: "red" }}
+                id="delete-btn"
+                onClick={() => deletePost(card?.id)}
+                onClick={() => deletePost(card?.id)}
+              >
+                Delete
+              </Button>
             </Card>
           </Col>
           <Col md="2"></Col>
@@ -193,11 +263,12 @@ const PostEdit = (props) => {
         </ModalBody>
         <ModalFooter>
           <Button
-            style={{ backgroundColor: "#F72485"}}
+            style={{ backgroundColor: "#F72485" }}
             id="update-post-btn"
             onClick={() => {
               setIsSubmitting(true);
               setIsOpen(false);
+              artPostUpdate(e);
             }}
           >
             Update Post
