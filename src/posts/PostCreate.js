@@ -42,7 +42,7 @@ export default function PostCreate({
     if (isSubmitting) {
       console.log("pong");
       console.log(post);
-      fetch("http://localhost:3003/art/create", {
+      fetch("http://localhost:3333/art/create", {
         method: "POST",
         body: JSON.stringify({ post }),
         headers: {
@@ -93,15 +93,15 @@ export default function PostCreate({
   };
 
   useEffect(() => {
-    if(isSubmitting) {
-      setPost('');
+    if (isSubmitting) {
+      setPost({ artist_name, url, description, style, era, for_sale, price });
     }
   }, [isSubmitting]);
 
   return (
     <div>
       <Button id="create-post-btn" onClick={() => toggle()}>
-        Create A Post
+        Create Post
       </Button>
       <Modal
         centered
@@ -150,7 +150,7 @@ export default function PostCreate({
             <FormGroup>
               <Label for="style">Style</Label>
               <Input
-                type="textarea"
+                type="text"
                 name="style"
                 id="style"
                 placeholder="Style"
@@ -183,6 +183,7 @@ export default function PostCreate({
               <Label for="price">Price</Label>
               <Input
                 type="number"
+                min="1"
                 name="price"
                 id="price"
                 placeholder="Price"
@@ -202,10 +203,13 @@ export default function PostCreate({
           >
             Post Art To Gallery
           </Button>{" "}
-          <Button variant="danger" onClick={() => {
-            setIsSubmitting(true);
-            setIsOpen(false);
-          }}>
+          <Button
+            variant="danger"
+            onClick={() => {
+              setIsSubmitting(true);
+              setIsOpen(false);
+            }}
+          >
             Cancel
           </Button>
         </ModalFooter>

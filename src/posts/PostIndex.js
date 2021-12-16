@@ -26,11 +26,11 @@ const PostIndex = () => {
   //http://localhost:3333/art/
   //https://lam-art-gallery-server.herokuapp.com/art/
   const fetchPosts = async () => {
-    const response = await fetch("http://localhost:3003/art/", {
+    const response = await fetch("http://localhost:3333/art/", {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       }),
     })
       .then((res) => {
@@ -38,7 +38,7 @@ const PostIndex = () => {
         return body;
       })
       .then((data) => {
-        setData(data);
+        setData(data.reverse());
         console.log("data:", typeof data);
       });
 
@@ -53,34 +53,32 @@ const PostIndex = () => {
 
   const renderCard = (card, index) => {
     return (
-      <Container>
-        <Row>
-          <Col md="2"></Col>
-          <Col md="8">
-            <Card
-              style={{ width: "100", height: "100", margin: "20px" }}
-              key={index}
-              className='box'
-            >
-              <CardImg variant="top" src={data[index].url} />
-              <CardBody>
-              </CardBody>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>By: {data[index].artist_name}</ListGroupItem>
-                <ListGroupItem>
-                  Description: <br /> {data[index].description} <br /> Style:{" "}
-                  {data[index].style} <br /> Era: {data[index].era}
-                </ListGroupItem>
-                <ListGroupItem>
-                  For Sale: {!data[index].forSale ? "Yes" : "No"} <br /> Price:
-                  ${data[index].price}
-                </ListGroupItem>
-              </ListGroup>
-            </Card>
-          </Col>
-          <Col md="2"></Col>
-        </Row>
-      </Container>
+      <Card
+        style={{ width: "300px", height: "100%", margin: "20px" }}
+        key={index}
+        className="box"
+      >
+        <CardImg
+          variant="top"
+          src={data[index].url}
+          style={{ maxHeight: "200px", minHeight: "200px" }}
+          id="card-img"
+        />
+        <ListGroup className="list-group-flush">
+          <ListGroupItem>
+            <b>Artist:</b> {data[index].artist_name}
+          </ListGroupItem>
+          <ListGroupItem>
+            <b>Description:</b> <br /> {data[index].description} <br />{" "}
+            <b>Style:</b> {data[index].style} <br /> <b>Era</b>:{" "}
+            {data[index].era}
+          </ListGroupItem>
+          <ListGroupItem>
+            <b>For Sale:</b> {!!data[index].for_sale ? "Yes" : "No"} <br />{" "}
+            {data[index].price ? <b>Price:</b> : null}  {data[index].price ? <b>$</b> : null }{data[index].price} 
+          </ListGroupItem>
+        </ListGroup>
+      </Card>
     );
   };
 
