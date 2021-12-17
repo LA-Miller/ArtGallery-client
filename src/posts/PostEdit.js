@@ -25,13 +25,13 @@ const PostEdit = (props) => {
   const [data, setData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [artistName, setEditArtistName] = useState(data.artist_name);
+  const [artistName, setNewArtistName] = useState(data.artist_name);
   const [url, setEditUrl] = useState(data.url);
-  const [newDescription, setEditDescription] = useState(data.description);
-  const [newStyle, setEditStyle] = useState(data.style);
-  const [newEra, setEditEra] = useState(data.era);
-  const [newForSale, setEditForSale] = useState(false);
-  const [newPrice, setEditPrice] = useState(data.price);
+  const [newDescription, setNewDescription] = useState(data.description);
+  const [newStyle, setNewStyle] = useState(data.style);
+  const [newEra, setNewEra] = useState(data.era);
+  const [newForSale, setNewForSale] = useState(data.for_sale);
+  const [newPrice, setNewPrice] = useState(data.price);
   const [editMode, setEditMode] = useState(false);
 
   const artPostUpdate = (postId, e) => {
@@ -39,7 +39,16 @@ const PostEdit = (props) => {
     // console.log(artistName);
     console.log(newForSale);
     console.log(newPrice);
-    fetch(`https://lam-art-gallery-server.herokuapp.com/art/update/${postId}`, {
+    console.log({
+      artist_name: artistName,
+      url: url,
+      description: newDescription,
+      style: newStyle,
+      era: newEra,
+      for_sale: newForSale,
+      price: newPrice,
+    });
+    fetch(`http://localhost:3333/art/update/${postId}`, {
       method: "PUT",
       body: JSON.stringify({
         artist_name: artistName,
@@ -55,13 +64,13 @@ const PostEdit = (props) => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-      // .then((json) => console.log(json))
+      .then((json) => console.log(json))
       .then(() => getUserPosts())
       .catch((err) => console.log(err));
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(`https://lam-art-gallery-server.herokuapp.com/art/user`, {
+    const response = await fetch(`http://localhost:3333/art/user`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -83,7 +92,7 @@ const PostEdit = (props) => {
   const deletePost = (postId) => {
     console.log(postId);
     console.log("Post deleted");
-    fetch(`https://lam-art-gallery-server.herokuapp.com/art/${postId}`, {
+    fetch(`http://localhost:3333/art/${postId}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -97,6 +106,11 @@ const PostEdit = (props) => {
       const myResults = await getUserPosts();
     }
   }, []);
+
+  // const handleCheckChange = () => {
+  //   this.setState({ checked: event.target.checked})
+
+  // }
 
   const renderCard = (card, index) => {
     // setPostToUpdate(card);
@@ -118,7 +132,7 @@ const PostEdit = (props) => {
                 <ListGroupItem>
                   By:
                   <Input
-                    onChange={(e) => setEditArtistName(e.target.value)}
+                    onChange={(e) => setNewArtistName(e.target.value)}
                     contentEditable={editMode}
                     placeholder={data[index].artist_name}
                     value={card.artistName}
@@ -129,7 +143,7 @@ const PostEdit = (props) => {
                 <ListGroupItem>
                   Description:
                   <Input
-                    onChange={(e) => setEditDescription(e.target.value)}
+                    onChange={(e) => setNewDescription(e.target.value)}
                     contentEditable={editMode}
                     placeholder={data[index].description}
                     value={card.newDescription}
@@ -138,7 +152,7 @@ const PostEdit = (props) => {
                   </Input>
                   Style:
                   <Input
-                    onChange={(e) => setEditStyle(e.target.value)}
+                    onChange={(e) => setNewStyle(e.target.value)}
                     contentEditable={editMode}
                     placeholder={data[index].style}
                     value={card.newStyle}
@@ -147,7 +161,7 @@ const PostEdit = (props) => {
                   </Input>
                   Era:
                   <Input
-                    onChange={(e) => setEditEra(e.target.value)}
+                    onChange={(e) => setNewEra(e.target.value)}
                     contentEditable={editMode}
                     placeholder={data[index].era}
                     value={card.newEra}
@@ -159,24 +173,24 @@ const PostEdit = (props) => {
                   <h5>For Sale:</h5>
                   <Input
                     type="checkbox"
-                    onChange={(e) => setEditForSale(e.target.value)}
+                    defaultChecked={ card.newForSale ?? data[index].for_sale } 
+                    onChange={(e) => {console.log(e.target.value) ; setNewForSale(e.target.checked)}}
                     contentEditable={editMode}
                     placeholder={data[index].for_sale}
-                    value={card.newForSale}
+                    //value={true}
                   >
-                    {!data[index].for_sale ? "yes" : "no"}
+                    {/* {!data[index].for_sale ? "yes" : "no"} */}
                   </Input>
                   <br />
                   Price:
                   <Input
                     type="number"
                     min="1"
-                    onChange={(e) => setEditForSale(e.target.value)}
+                    onChange={(e) => setNewPrice(e.target.value)}
                     contentEditable={editMode}
                     placeholder={data[index].price}
                     value={card.newPrice}
                   >
-                    {data[index].price}
                   </Input>
                 </ListGroupItem>
               </ListGroup>
