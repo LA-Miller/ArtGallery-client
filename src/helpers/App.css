@@ -84,15 +84,8 @@
 } */
 
 #login-btn {
-  height: fit-content;
-  width: 15%;
   background-color: #7209b7;
-  border: 3px solid #7209b7;
   margin-bottom: 100px;
-}
-
-#login-btn:hover {
-  border: 3px solid #ffaa01
 }
 
 .login-h1 {
@@ -100,15 +93,8 @@
 }
 
 #signup-btn {
-  height: fit-content;
-  width: 15%;
   background-color: #7209b7;
-  border: 3px solid #7209b7;
   margin-bottom: 100px;
-}
-
-#signup-btn:hover {
-  border: 3px solid #ffaa01
 }
 
 .signup-h1 {
@@ -218,7 +204,7 @@ footer {
   border: 3px solid #ffaa01;
 }
 
-#update-post-btn {
+#edit-btn {
   height: fit-content;
   width: 30%;
   border: 3px solid #4cc9f0;
@@ -228,14 +214,13 @@ footer {
   border: 3px solid #ffaa01;
 }
 
-#edit-card-buttons {
+#edit-buttons {
   display: flex;
   justify-content: space-between;
 }
 
 #update-post-btn {
-  background-color: #7208B7 ;
-  border: 3px solid #7208B7 ;
+  border: 3px solid #F72485;
 }
 
 #update-post-btn:hover {
@@ -243,10 +228,8 @@ footer {
 }
 
 #close-edit-btn {
-  height: fit-content;
-  width: 15%;
-  background-color: #F72485;
-  border: 3px solid #F72485;
+  background-color: #7208B7;
+  border: 3px solid #7208B7;
 }
 
 #close-edit-btn:hover {
@@ -256,6 +239,8 @@ footer {
 #card:hover {
   transform: translate3D(0, -1px, 0) scale(1.1);
 }
+
+#card:
 
 /* .grid > div {
   flex-basis: calc(20% - 40px);

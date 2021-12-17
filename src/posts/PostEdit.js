@@ -25,56 +25,62 @@ const PostEdit = (props) => {
   const [data, setData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [artistName, setEditArtistName] = useState("");
-  const [url, setEditUrl] = useState("");
-  const [description, setEditDescription] = useState("");
-  const [style, setEditStyle] = useState("");
-  const [era, setEditEra] = useState("");
-  const [for_sale, setEditForSale] = useState(false);
-  const [price, setEditPrice] = useState("");
+  const [artistName, setEditArtistName] = useState(data.artist_name);
+  const [url, setEditUrl] = useState(data.url);
+  const [newDescription, setEditDescription] = useState(data.description);
+  const [newStyle, setEditStyle] = useState(data.style);
+  const [newEra, setEditEra] = useState(data.era);
+  const [newForSale, setEditForSale] = useState(false);
+  const [newPrice, setEditPrice] = useState(data.price);
   const [editMode, setEditMode] = useState(false);
-  const [updateFields, setUpdateFields] = useState({
-    artist_name,
-    url,
-    description,
-    style,
-    era,
-    for_sale,
-    price,
-  }); //creating post state and setting the state to the post object});
+  // const [updateFields, setUpdateFields] = useState({
+  //   artist_name: artistName,
+  //   url,
+  //   description,
+  //   style,
+  //   era,
+  //   for_sale,
+  //   price,
+  // }); //creating post state and setting the state to the post object});
 
   const artPostUpdate = (postId, e) => {
-    console.log(postId);
-    console.log(updateFields);
-    fetch(`http://localhost:3003/art/update/${postId}`, {
+    // console.log(postId);
+    // console.log(artistName);
+    console.log(newForSale);
+    console.log(newPrice);
+    fetch(`http://localhost:3333/art/update/${postId}`, {
       method: "PUT",
       body: JSON.stringify({
         artist_name: artistName,
-        url,
-        description,
-        style,
-        era,
-        for_sale,
-        price,
+        url: url,
+        description: newDescription,
+        style: newStyle,
+        era: newEra,
+        for_sale: newForSale,
+        price: newPrice,
       }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-    }).then(() => getUserPosts());
+    })
+      // .then((json) => console.log(json))
+      .then(() => getUserPosts())
+      .catch((err) => console.log(err));
   };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    console.log({ ...updateFields, [name]: value });
-    setUpdateFields({ ...updateFields, [name]: value });
-  }; //setting the post state to the value of the input
 
-  const handleUpdate = (e) => {
-    setEditMode(!editMode);
-  };
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   console.log({ ...updateFields, [name]: value });
+  //   setUpdateFields({ ...updateFields, [name]: value });
+  // }; //setting the post state to the value of the input
+
+  // const handleUpdate = () => {
+  //   setEditMode(!editMode);
+  // };
 
   const getUserPosts = async () => {
-    const response = await fetch(`http://localhost:3003/art/user`, {
+    const response = await fetch(`http://localhost:3333/art/user`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -96,7 +102,7 @@ const PostEdit = (props) => {
   const deletePost = (postId) => {
     console.log(postId);
     console.log("Post deleted");
-    fetch(`http://localhost:3003/art/${postId}`, {
+    fetch(`http://localhost:3333/art/${postId}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -111,8 +117,15 @@ const PostEdit = (props) => {
     }
   }, []);
 
+  const handleCheck = () => {
+    setEditForSale(!newForSale);
+  };
+
   const renderCard = (card, index) => {
+    // setPostToUpdate(card);
+    // console.log(postToUpdate);
     // console.log(card);
+    // console.log("data", data);
     return (
       <Container>
         <Row>
@@ -124,112 +137,94 @@ const PostEdit = (props) => {
               className="box"
             >
               <CardImg variant="top" src={data[index].url} />
-              <CardBody>
-                <CardTitle></CardTitle>
-                <CardText></CardText>
-              </CardBody>
               <ListGroup className="list-group-flush">
                 <ListGroupItem>
                   By:
-                  {editMode ? (
-                    <Input
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].artist_name}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>
-                      {data[index].artist_name}
-                    </div>
-                  )}
+                  <Input
+                    onChange={(e) => setEditArtistName(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].artist_name}
+                    value={card.artistName}
+                  >
+                    {data[index].artist_name}
+                  </Input>
                 </ListGroupItem>
                 <ListGroupItem>
-                  Description:{" "}
-                  {editMode ? (
-                    <Input
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].description}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>
-                      {data[index].description}
-                    </div>
-                  )}
+                  Description:
+                  <Input
+                    onChange={(e) => setEditDescription(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].description}
+                    value={card.newDescription}
+                  >
+                    {data[index].description}
+                  </Input>
                   Style:
-                  {editMode ? (
-                    <Input
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].style}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>{data[index].style}</div>
-                  )}
+                  <Input
+                    onChange={(e) => setEditStyle(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].style}
+                    value={card.newStyle}
+                  >
+                    {data[index].style}
+                  </Input>
                   Era:
-                  {editMode ? (
-                    <Input
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].era}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>{data[index].era}</div>
-                  )}
+                  <Input
+                    onChange={(e) => setEditEra(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].era}
+                    value={card.newEra}
+                  >
+                    {data[index].era}
+                  </Input>
                 </ListGroupItem>
                 <ListGroupItem>
                   <h5>For Sale:</h5>
-                  {editMode ? (
-                    <Input
-                      type="checkbox"
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].for_sale}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>
-                      {!data[index].for_sale ? "Yes" : "No"}
-                    </div>
-                  )}
+                  <Input
+                    type="checkbox"
+                    onChange={(e) => setEditForSale(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].for_sale}
+                    value={card.newForSale}
+                  >
+                    {!data[index].for_sale ? "yes" : "no"}
+                  </Input>
                   <br />
                   Price:
-                  {editMode ? (
-                    <Input
-                      type="number"
-                      min="1"
-                      onChange={handleInputChange}
-                      contentEditable={editMode}
-                    >
-                      {data[index].price}
-                    </Input>
-                  ) : (
-                    <div contentEditable={editMode}>{data[index].price}</div>
-                  )}
+                  <Input
+                    type="number"
+                    min="1"
+                    onChange={(e) => setEditForSale(e.target.value)}
+                    contentEditable={editMode}
+                    placeholder={data[index].price}
+                    value={card.newPrice}
+                  >
+                    {data[index].price}
+                  </Input>
                 </ListGroupItem>
               </ListGroup>
-              <Button
+              {/* <Button
                 style={{ backgroundColor: "#4CC9F0" }}
                 id="edit-btn"
-                onClick={() => handleUpdate()}
+                onClick={() => handleUpdate(card?.id)}
               >
                 Edit Post
-              </Button>
-              <Button onClick={() => artPostUpdate(card?.id)}>
-                Update Post
-              </Button>
-              <Button
-                style={{ backgroundColor: "red" }}
-                id="delete-btn"
-                onClick={() => deletePost(card?.id)}
-                onClick={() => deletePost(card?.id)}
-              >
-                Delete
-              </Button>
+              </Button> */}
+              <div id="edit-card-buttons">
+                <Button
+                  id="update-post-btn"
+                  onClick={() => artPostUpdate(card?.id)}
+                >
+                  Update Post
+                </Button>
+                <Button
+                  style={{ backgroundColor: "red" }}
+                  id="delete-btn"
+                  onClick={() => deletePost(card?.id)}
+                >
+                  Delete
+                </Button>
+              </div>
             </Card>
           </Col>
           <Col md="2"></Col>
@@ -240,6 +235,8 @@ const PostEdit = (props) => {
 
   const toggle = () => {
     setIsOpen(!isOpen);
+    setEditMode(!editMode);
+    console.log(editMode);
     console.log(isOpen);
   };
 
@@ -262,17 +259,6 @@ const PostEdit = (props) => {
           <div>{data.map(renderCard)}</div>
         </ModalBody>
         <ModalFooter>
-          <Button
-            style={{ backgroundColor: "#F72485" }}
-            id="update-post-btn"
-            onClick={() => {
-              setIsSubmitting(true);
-              setIsOpen(false);
-              artPostUpdate(e);
-            }}
-          >
-            Update Post
-          </Button>{" "}
           <Button
             variant="danger"
             id="close-edit-btn"
