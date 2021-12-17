@@ -34,7 +34,8 @@ const Login = (props) => {
             name="email"
             value={email}
             id="signup-email"
-          />
+            required={true}
+            />
         </FormGroup>
         <FormGroup>
           <Label id="pass-label" htmlFor="password">Password</Label>
@@ -43,6 +44,7 @@ const Login = (props) => {
             name="password"
             value={password}
             id="signup-pass"
+            required={true}
           />
         </FormGroup>
         <Button id="login-btn" variant="primary" type="submit">Login</Button>

@@ -29,7 +29,7 @@ const Sitebar = (props) => {
   };
 
   return (
-    <Navbar color="faded" light expand="md">
+    <Navbar sticky="top" color="faded" light expand="md">
       <NavbarBrand id="logo" className="text-center" href="/">
         <img alt="Art Gallery Logo" src={logo} width="400" height="200" />
       </NavbarBrand>

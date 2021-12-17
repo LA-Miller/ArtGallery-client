@@ -38,6 +38,7 @@ const Signup = (props) => {
             name="email"
             value={email}
             id="signup-email"
+            required={true}
           />
         </FormGroup>
         <FormGroup>
@@ -47,6 +48,7 @@ const Signup = (props) => {
             name="password"
             value={password}
             id="signup-pass"
+            required={true}
           />
         </FormGroup>
         <Button id="signup-btn" type="submit">Signup</Button>
