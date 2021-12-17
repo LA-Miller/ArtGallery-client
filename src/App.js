@@ -4,8 +4,10 @@ import Sitebar from "./home/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import PostIndex from "./posts/PostIndex";
+import { BrowserRouter as Router } from "react-router-dom";
+import Footer from "./home/Footer";
 
-function App (props) {
+function App(props) {
   const [sessionToken, setSessionToken] = useState("");
 
   useEffect(() => {
@@ -37,7 +39,8 @@ function App (props) {
     <div className="App">
       <Sitebar clickLogout={clearToken} />
       {protectedViews()}
-    </div> 
+      <Footer />
+    </div>
   );
 }
 

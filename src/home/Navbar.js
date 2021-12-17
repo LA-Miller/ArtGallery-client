@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import logo from "../assets/logo.svg";
+import { Route, Link, Switch } from "react-router-dom";
+import logo from "../logo.svg";
 import "../App.css";
 import {
   Collapse,
@@ -11,6 +12,8 @@ import {
   Button,
 } from "reactstrap";
 import PostCreate from "../posts/PostCreate";
+import PostEdit from "../posts/PostEdit";
+import PostIndex from "../posts/PostIndex";
 
 const Sitebar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +21,11 @@ const Sitebar = (props) => {
   const toggle = () => {
     let newIsOpen = !isOpen;
     setIsOpen(newIsOpen);
+  };
+
+  const createPost = () => {
+    console.log("create");
+    return <PostCreate />;
   };
 
   return (
@@ -28,9 +36,13 @@ const Sitebar = (props) => {
       <NavbarToggler onClick={toggle} />
       <Collapse className="moveToEnd" isOpen={isOpen} navbar>
         <Nav className="nav">
+          {!!localStorage.getItem("token") && <PostCreate />}
+          {!!localStorage.getItem("token") && <PostEdit />}
           {!!localStorage.getItem("token") && (
             <NavItem className="logout">
-              <Button id="logout-btn" onClick={props.clickLogout}>Logout</Button>
+              <Button id="logout-btn" onClick={props.clickLogout}>
+                Logout
+              </Button>
             </NavItem>
           )}
         </Nav>
