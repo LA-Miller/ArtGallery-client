@@ -47,7 +47,7 @@ const PostEdit = (props) => {
   const artPostUpdate = (postId, e) => {
     console.log(postId);
     console.log(artistName);
-    fetch(`http://localhost:3333/art/update/${postId}`, {
+    fetch(`http://localhost:3003/art/update/${postId}`, {
       method: "PUT",
       body: JSON.stringify({
         artist_name: artistName,
@@ -98,7 +98,7 @@ const PostEdit = (props) => {
   const deletePost = (postId) => {
     console.log(postId);
     console.log("Post deleted");
-    fetch(`http://localhost:3333/art/${postId}`, {
+    fetch(`http://localhost:3003/art/${postId}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
