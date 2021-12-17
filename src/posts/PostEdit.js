@@ -48,7 +48,7 @@ const PostEdit = (props) => {
       for_sale: newForSale,
       price: newPrice,
     });
-    fetch(`http://localhost:3333/art/update/${postId}`, {
+    fetch(`https://lam-art-gallery-server.herokuapp.com/art/update/${postId}`, {
       method: "PUT",
       body: JSON.stringify({
         artist_name: artistName,
@@ -70,7 +70,7 @@ const PostEdit = (props) => {
   };
 
   const getUserPosts = async () => {
-    const response = await fetch(`http://localhost:3333/art/user`, {
+    const response = await fetch(`https://lam-art-gallery-server.herokuapp.com/art/user`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -92,7 +92,7 @@ const PostEdit = (props) => {
   const deletePost = (postId) => {
     console.log(postId);
     console.log("Post deleted");
-    fetch(`http://localhost:3333/art/${postId}`, {
+    fetch(`https://lam-art-gallery-server.herokuapp.com/art/${postId}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
