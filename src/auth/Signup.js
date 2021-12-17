@@ -11,7 +11,7 @@ const Signup = (props) => {
 
     //https://lam-art-gallery-server.herokuapp.com/user/register
     //http://localhost:3333/user/register
-    fetch("https://lam-art-gallery-server.herokuapp.com/user/register", {
+    fetch("http://localhost:3333/user/register", {
       method: "POST",
       body: JSON.stringify({
         user: { email: email, password: password },
@@ -38,6 +38,7 @@ const Signup = (props) => {
             name="email"
             value={email}
             id="signup-email"
+            required={true}
           />
         </FormGroup>
         <FormGroup>
@@ -47,6 +48,7 @@ const Signup = (props) => {
             name="password"
             value={password}
             id="signup-pass"
+            required={true}
           />
         </FormGroup>
         <Button id="signup-btn" type="submit">Signup</Button>
