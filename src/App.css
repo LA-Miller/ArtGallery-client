@@ -144,6 +144,10 @@
 .nav {
   width: 100%;
   justify-content: flex-end;
+ 
+}
+
+nav {
   background-color: white;
 }
 
