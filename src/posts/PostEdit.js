@@ -33,15 +33,6 @@ const PostEdit = (props) => {
   const [newForSale, setEditForSale] = useState(false);
   const [newPrice, setEditPrice] = useState(data.price);
   const [editMode, setEditMode] = useState(false);
-  // const [updateFields, setUpdateFields] = useState({
-  //   artist_name: artistName,
-  //   url,
-  //   description,
-  //   style,
-  //   era,
-  //   for_sale,
-  //   price,
-  // }); //creating post state and setting the state to the post object});
 
   const artPostUpdate = (postId, e) => {
     // console.log(postId);
@@ -68,16 +59,6 @@ const PostEdit = (props) => {
       .then(() => getUserPosts())
       .catch((err) => console.log(err));
   };
-
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   console.log({ ...updateFields, [name]: value });
-  //   setUpdateFields({ ...updateFields, [name]: value });
-  // }; //setting the post state to the value of the input
-
-  // const handleUpdate = () => {
-  //   setEditMode(!editMode);
-  // };
 
   const getUserPosts = async () => {
     const response = await fetch(`http://localhost:3333/art/user`, {
@@ -116,10 +97,6 @@ const PostEdit = (props) => {
       const myResults = await getUserPosts();
     }
   }, []);
-
-  const handleCheck = () => {
-    setEditForSale(!newForSale);
-  };
 
   const renderCard = (card, index) => {
     // setPostToUpdate(card);
@@ -203,13 +180,6 @@ const PostEdit = (props) => {
                   </Input>
                 </ListGroupItem>
               </ListGroup>
-              {/* <Button
-                style={{ backgroundColor: "#4CC9F0" }}
-                id="edit-btn"
-                onClick={() => handleUpdate(card?.id)}
-              >
-                Edit Post
-              </Button> */}
               <div id="edit-card-buttons">
                 <Button
                   id="update-post-btn"
