@@ -3,6 +3,9 @@ https://github.com/LA-Miller
 https://www.linkedin.com/in/luke-miller-91a68a222/
 https://la-miller.github.io/LA-Miller/
 
+Marcus Schnake
+
+
 Assigned Tasks for Luke Miller
   Signup/Login Page and fetch -- Complete
   
