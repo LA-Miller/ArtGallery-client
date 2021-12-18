@@ -32,6 +32,8 @@ Assigned Tasks for Marcus Schnake
   
   Navbar debugging and fixed-- Complete
   
+  Create Post endpoint -- Complete
+  
   
   
   
