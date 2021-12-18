@@ -59,10 +59,10 @@ const PostEdit = (props) => {
         for_sale: newForSale,
         price: newPrice,
       }),
-      headers: {
+      headers: new Headers({
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
+      }),
     })
       .then((json) => console.log(json))
       .then(() => getUserPosts())
